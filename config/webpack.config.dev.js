@@ -25,5 +25,6 @@ module.exports = {
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': '"dev"'
 		})
-	].concat(baseConfig.plugins)
+	].concat(baseConfig.plugins),
+	module: baseConfig.module
 }

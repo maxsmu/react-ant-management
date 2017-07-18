@@ -6,16 +6,17 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+// import { Provider } from 'react-redux';
+// import { BrowserRouter as Router } from 'react-router-dom';
 
 export default class App extends Component {
 	render() {
-		const { store, history } = this.props;
+		// const { store, history } = this.props;
 		return (
-			<Provider store={store}>
-				<Router history={history} />
-			</Provider>
+			<div>1212</div>
+			// <Provider store={store}>
+			// 	{/* <Router history={history} /> */}
+			// </Provider>
 		);
 	}
 }

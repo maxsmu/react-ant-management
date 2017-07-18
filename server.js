@@ -11,6 +11,10 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const fs = require('fs');
 const morgan = require('morgan');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackConfig = require('./config/webpack.config.dev')
 
 const app = express();
 
@@ -18,7 +22,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(express.static(__dirname));
+const middlewareSetting = {
+	publicPath: webpackConfig.publicPath,
+	buildPath: webpackConfig.buildPath,
+	stats: {
+		colors: true,
+		cached: false
+	}
+};
+
+const compiler = webpack(webpackConfig);
+app.use(webpackDevMiddleware(compiler, middlewareSetting));
+app.use(webpackHotMiddleware(compiler));
+app.use(express.static(webpackConfig.output.path));
+
+// app.use(express.static(__dirname));
 
 app.use(morgan('dev'));
 
@@ -65,7 +83,7 @@ const server = app.listen(app.get('port'), () => {
 	console.log(`访问地址: http://127.0.0.1:${server.address().port}\n`);
 
 	// 自动打开浏览器
-	open('http://localhost:' + server.address().port);
+	// open('http://localhost:' + server.address().port);
 });
 
 module.exports = app;

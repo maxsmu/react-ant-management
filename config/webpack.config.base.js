@@ -12,8 +12,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 
-const sourcePath = path.join(__dirname, '../../src');
-const distPath = path.join(__dirname, '../../dist');
+const sourcePath = path.join(__dirname, '../src');
+const distPath = path.join(__dirname, '../dist');
 
 module.exports = {
 	devtool: 'eval',
@@ -30,10 +30,10 @@ module.exports = {
 			'react-router-redux',
 			'react-router-dom'
 		],
-		app: [sourcePath + '/index.js']
+		app: [sourcePath + '/index.jsx']
 	},
 	output: {
-		path: buildPath,
+		path: distPath,
 		filename: '[name].[hash:8].js',
 		publicPath: '/'
 	},
@@ -55,8 +55,11 @@ module.exports = {
 			},
 			{
 				test: /\.(js|jsx)$/,
-				loader: 'babel-loader',
-				exclude: /node_modules/
+				exclude: /node_modules/,
+				use:{
+					loader: 'babel-loader'
+				}
+				// include: sourcePath
 			},
 			{
 				test: /\.(sc|c)ss$/,
@@ -72,6 +75,7 @@ module.exports = {
 						options: {
 							sourceMap: true
 						}
+					},
 					{
 						loader: 'postcss-loader',
 						options: {
