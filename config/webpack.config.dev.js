@@ -26,5 +26,6 @@ module.exports = {
 			'process.env.NODE_ENV': '"dev"'
 		})
 	].concat(baseConfig.plugins),
-	module: baseConfig.module
+	module: baseConfig.module,
+	resolve: baseConfig.resolve
 }

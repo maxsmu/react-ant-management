@@ -14,10 +14,10 @@ import middleware from '../middleware';
  * @param {object} initialState 初始化state
  */
 export default initialState => {
-	const store = createStore({
+	const store = createStore(
 		reducers,
 		initialState,
-		...applyMiddleware(middleware)
-	});
+		applyMiddleware(...middleware)
+	);
 	return store;
 };

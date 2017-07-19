@@ -16,7 +16,8 @@ const sourcePath = path.join(__dirname, '../src');
 const distPath = path.join(__dirname, '../dist');
 
 module.exports = {
-	devtool: 'eval',
+	devtool: 'cheap-module-source-map',
+
 	entry: {
 		chunk: [
 			'react',
@@ -38,11 +39,12 @@ module.exports = {
 		publicPath: '/'
 	},
 	resolve: {
-		extensions: ['.js', '.jsx', '.json'],
+		extensions: ['.js', '.json', '.jsx'],
 		alias: {
-			'@view': `${sourcePath}/containers/`,
-			'@components': `${sourcePath}/components/`,
-			'@actions': `${sourcePath}/redux/actions/`
+			'@layout': path.resolve(sourcePath, './layouts'),
+			'@view': path.resolve(sourcePath, './views/'),
+			'@components': path.resolve(sourcePath, './components/'),
+			'@actions': path.resolve(sourcePath, './redux/actions/')
 		}
 	},
 	module: {
@@ -56,10 +58,9 @@ module.exports = {
 			{
 				test: /\.(js|jsx)$/,
 				exclude: /node_modules/,
-				use:{
+				use: {
 					loader: 'babel-loader'
 				}
-				// include: sourcePath
 			},
 			{
 				test: /\.(sc|c)ss$/,
@@ -73,7 +74,11 @@ module.exports = {
 					{
 						loader: 'css-loader',
 						options: {
-							sourceMap: true
+							sourceMap: true,
+							importLoaders: 1,
+							modules: true,
+							camelCase: true,
+							localIdentName: '[local]__[hash:base64:5]'
 						}
 					},
 					{

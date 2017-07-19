@@ -1,0 +1,52 @@
+/**
+ * @author: Michael
+ * @date: 2017-07-19 14:07:25
+ * @last modified by: Michael
+ * @last modified time: 2017-07-19 14:07:25
+ * @gitHub: https://github.com/maxsmu
+*/
+$headerHeight: 60px;
+.header {
+    position: fixed;
+    z-index: 1002;
+    right: 0;
+    left: 0;
+
+    height: $headerHeight;
+    padding: 0 15px;
+
+    border-bottom: 1px solid #c9aa5f;
+    background: #2b3643;
+}
+.logoBox {
+    display: inline-block;
+
+    width: 200px;
+    height: $headerHeight;
+    margin-left: 60px;
+    padding-top: 15px;
+    padding-left: 6px;
+    a {
+        font-size: 20px;
+
+        text-transform: uppercase;
+
+        color: #fff;
+    }
+}
+.notifyBox {
+    display: inline-block;
+
+    cursor: pointer;
+    .IconBox {
+        padding: 6px 5px 3px 5px;
+
+        border: solid 1px #797979;
+        border-radius: 3px;
+    }
+}
+.logoutBox {
+    float: right;
+
+    padding-top: 15px;
+}

@@ -20,6 +20,7 @@
   "dependencies": {
     "antd": "^2.12.1",
     "history": "^4.6.3",
+    "normalize.css": "^7.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
@@ -54,6 +55,7 @@
     "html-webpack-plugin": "^2.29.0",
     "image-webpack-loader": "^3.3.1",
     "morgan": "^1.8.2",
+    "node-sass": "^4.5.3",
     "open": "0.0.5",
     "path": "^0.12.7",
     "postcss-loader": "^2.0.6",

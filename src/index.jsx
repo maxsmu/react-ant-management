@@ -10,11 +10,17 @@ import React from 'react';
 import { render } from 'react-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import App from './app.jsx';
+import App from '@view/app';
 import initConfigStore from './redux/stores';
 
 const store = initConfigStore();
 const browserHistory = createBrowserHistory();
 const history = syncHistoryWithStore(browserHistory, store);
 
-render(<App store={store} history={history} />, document.getElementById('root'));
+// 利用立即执行函数
+(function renderApp() {
+	render(
+		<App store={store} history={history} />,
+		document.getElementById('root')
+	);
+})();
