@@ -36,8 +36,6 @@ app.use(webpackDevMiddleware(compiler, middlewareSetting));
 app.use(webpackHotMiddleware(compiler));
 app.use(express.static(webpackConfig.output.path));
 
-// app.use(express.static(__dirname));
-
 app.use(morgan('dev'));
 
 const router = express.Router();
@@ -63,7 +61,18 @@ app.use((function genRouters(router) {
 app.use((req, res, next) => {
 	const err = new Error('Not Found');
 	err.status = 404;
-	next(err);
+	// next(err);
+	// 处理如果没有资源则返回index.html
+	require('http').get(`http://localhost:${app.get('port')}/index.html`, function(res1) {
+		var resData = "";
+		res1.on("data", function(data) {
+			resData += data;
+		});
+		res1.on("end", function() {
+			res.send(resData);
+		});
+	})
+
 });
 
 // error

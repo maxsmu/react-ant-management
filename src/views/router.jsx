@@ -6,12 +6,12 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
-import { MainLayout } from '@layout/main-layout';
+import { Dashboard } from '@view/dashboard';
 
 export const Router = (
 	<Switch>
-		<Route path="/" component={MainLayout} />
+		<Route path="/dashboard" component={Dashboard} />
 	</Switch>
 )

@@ -7,10 +7,11 @@
 */
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom'
-import { Router } from './router';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { MainLayout } from '@layout/main-layout';
 import 'normalize.css';
 import '!style-loader!css-loader!antd/dist/antd.css';
+
 
 export default class App extends Component {
 	render() {
@@ -18,7 +19,10 @@ export default class App extends Component {
 		return (
 			<Provider store={store}>
 				<BrowserRouter history={history}>
-					{Router}
+					<Switch>
+						<Redirect exact from="/" to="/dashboard" />
+						<Route path="/" component={MainLayout} />
+					</Switch>
 				</BrowserRouter>
 			</Provider>
 		);

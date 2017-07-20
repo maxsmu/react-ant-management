@@ -1,0 +1,129 @@
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1500514403662'); /* IE9*/
+  src: url('iconfont.eot?t=1500514403662#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1500514403662') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1500514403662') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1500514403662#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-upload:before { content: "\e632"; }
+
+.icon-jiaoyiguanli:before { content: "\e658"; }
+
+.icon-clear:before { content: "\e61f"; }
+
+.icon-dashboard:before { content: "\e631"; }
+
+.icon-question-mark:before { content: "\e601"; }
+
+.icon-sort:before { content: "\e612"; }
+
+.icon-loading:before { content: "\e608"; }
+
+.icon-refresh:before { content: "\e60a"; }
+
+.icon-trash:before { content: "\e60f"; }
+
+.icon-edit:before { content: "\e60c"; }
+
+.icon-mating:before { content: "\e614"; }
+
+.icon-childbirth:before { content: "\e616"; }
+
+.icon-mating-log:before { content: "\e618"; }
+
+.icon-childbirth-log:before { content: "\e61a"; }
+
+.icon-close:before { content: "\e60b"; }
+
+.icon-weaned-piglet:before { content: "\e640"; }
+
+.icon-caichao:before { content: "\e673"; }
+
+.icon-link:before { content: "\e622"; }
+
+.icon-count:before { content: "\e626"; }
+
+.icon-copy:before { content: "\e627"; }
+
+.icon-add:before { content: "\e62d"; }
+
+.icon-finish:before { content: "\e638"; }
+
+.icon-rightarrow:before { content: "\e60d"; }
+
+.icon-search:before { content: "\e615"; }
+
+.icon-caution:before { content: "\e61c"; }
+
+.icon-calendar:before { content: "\e610"; }
+
+.icon-arrow:before { content: "\e604"; }
+
+.icon-lastpage:before { content: "\e607"; }
+
+.icon-nextpage:before { content: "\e605"; }
+
+.icon-remark:before { content: "\e630"; }
+
+.icon-right:before { content: "\e634"; }
+
+.icon-stick:before { content: "\e637"; }
+
+.icon-subtract:before { content: "\e636"; }
+
+.icon-radio:before { content: "\e617"; }
+
+.icon-radio-checked:before { content: "\e61d"; }
+
+.icon-checkbox:before { content: "\e639"; }
+
+.icon-checkbox-checked:before { content: "\e620"; }
+
+.icon-indeterminate:before { content: "\e606"; }
+
+.icon-able:before { content: "\e657"; }
+
+.icon-diable:before { content: "\e659"; }
+
+.icon-tupianyoufanzhuan:before { content: "\e642"; }
+
+.icon-tupianzuofanzhuan:before { content: "\e643"; }
+
+.icon-archive:before { content: "\e61b"; }
+
+.icon-due-date:before { content: "\e66b"; }
+
+.icon-pig:before { content: "\e619"; }
+
+.icon-medicine:before { content: "\e60e"; }
+
+.icon-caichao1:before { content: "\e603"; }
+
+.icon-class:before { content: "\e629"; }
+
+.icon-shouhou:before { content: "\e611"; }
+
+.icon-antiepidemic:before { content: "\e613"; }
+
+.icon-shouhou1:before { content: "\e6b7"; }
+
+.icon-warning1:before { content: "\e71e"; }
+
+.icon-piglet:before { content: "\e65a"; }
+
+.icon-zizhuyange:before { content: "\e641"; }
+
+.icon-yangzhierhao:before { content: "\e61e"; }
+
+.icon-lactation-piglet-copy:before { content: "\e813"; }
+

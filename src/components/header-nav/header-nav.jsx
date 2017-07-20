@@ -7,23 +7,23 @@
 */
 import React, { Component } from 'react';
 import { Icon, Button } from 'antd';
-import headerStyle from './header-nav.scss';
+import cssStyle from './header-nav.scss';
 
 export default class HeadersNav extends Component {
 	render() {
 		return (
-			<header className={headerStyle.header}>
+			<header className={cssStyle.header}>
 
-				<div className={headerStyle.logoBox}>
+				<div className={cssStyle.logoBox}>
 					<a href="#">dashboard</a>
 				</div>
 
-				<div className={headerStyle.notifyBox}>
-					<div className={headerStyle.IconBox}>
+				<div className={cssStyle.notifyBox}>
+					<div className={cssStyle.IconBox}>
 						<Icon type="database" style={{ fontSize: 20, color: '#797979' }} />
 					</div>
 				</div>
-				<div className={headerStyle.logoutBox}>
+				<div className={cssStyle.logoutBox}>
 					<Button ghost style={{ borderColor: '#b6b6b6', color: '#b6b6b6' }}>logout</Button>
 				</div>
 			</header>

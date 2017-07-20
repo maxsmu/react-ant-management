@@ -7,42 +7,54 @@
 */
 import React, { Component } from 'react';
 import { Menu, Icon, Button } from 'antd';
-import style from './menu-bar.scss';
+import cssStyle from './menu-bar.scss';
+
+import { Link } from 'react-router-dom';
+
 const SubMenu = Menu.SubMenu;
 
 export default class MenuBar extends Component {
 	state = {
 		collapsed: false
 	}
+	/**
+	 * 点击收起按钮触发时间
+	 */
 	toggleCollapsed = () => {
 		this.setState({
 			collapsed: !this.state.collapsed
 		});
 	}
 	render() {
+		// menuList,
 		let boxStyle = {}
+
+		// 接受父类组件设置的样式，存在则使用
 		if (this.props.style) {
 			boxStyle = {
 				...this.props.style,
-				width: this.state.collapsed ? 60 : 210
+				flex: this.state.collapsed ? '0 0 60px' : '0 0 210px'
 			}
 		}
+
 		return (
 			<div style={boxStyle} >
-				<Button className={style.sidebarToggleBtn} ghost type="primary" onClick={this.toggleCollapsed}>
-					<Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
+				<Button className={cssStyle.sidebarToggleBtn} ghost type="primary" onClick={this.toggleCollapsed}>
+					<Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} style={{ color: '#797979' }} />
 				</Button>
 				<Menu
 					defaultSelectedKeys={['1']}
 					defaultOpenKeys={['sub1']}
 					mode="inline"
 					theme="dark"
-					style={{ height: '100%' }}
+					style={{ height: '100%', overflowY: 'scroll' }}
 					inlineCollapsed={this.state.collapsed}
 				>
 					<Menu.Item key="1">
-						<Icon type="pie-chart" />
-						<span>Option 1</span>
+						<Link to="/dashboard">
+							<Icon type="pie-chart" />
+							<span>Dashboard</span>
+						</Link>
 					</Menu.Item>
 					<Menu.Item key="2">
 						<Icon type="desktop" />

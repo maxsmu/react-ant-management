@@ -5,4 +5,4 @@
  * @last modified time: 2017-07-19 14:54:40
  * @gitHub: https://github.com/maxsmu
 */
-export { Dashboard } from './dashboard.jsx';
+export { default as Dashboard } from './dashboard';

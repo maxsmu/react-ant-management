@@ -6,23 +6,31 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
+// import { Switch, Route } from 'react-router-dom';
 
-// import style from './main-layout.scss';
+import cssStyle from './main-layout.scss';
 import { HeaderNav } from '@components/header-nav';
 import { MenuBar } from '@components/menu-bar';
+import { Container } from '@components/container'
+// import { Dashboard } from '@view/dashboard';
+import { Router } from '@view/router';
+
 export default class MainLayout extends Component {
 	render() {
 		const menuStyle = {
-			width: 210,
+			flex: '0 0 210px',
 			height: '100%',
-			top: 60,
-			zIndex: 1002,
-			position: 'fixed'
+			zIndex: 1002
 		}
 		return (
 			<div>
 				<HeaderNav />
-				<MenuBar style={menuStyle} />
+				<div className={cssStyle.main}>
+					<MenuBar style={menuStyle} />
+					<Container>
+						{Router}
+					</Container>
+				</div>
 			</div>
 		);
 	}

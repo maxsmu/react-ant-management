@@ -8,15 +8,12 @@
 import React from 'react';
 // import { push } from 'react-router-redux';
 // import { connect } from 'react-redux';
-import { HeaderNav } from '@components/HeaderNav';
 
 class Dashboard extends React.Component {
 	render() {
 		return (
 			<section>
-				<HeaderNav />
-				111
-				{this.props.children}
+				1111
 			</section>
 		)
 	}
