@@ -244,7 +244,7 @@
     // 组件方法声明顺序
     "react/sort-comp": [1, {"order": ["type-annotations","static-methods","lifecycle","everything-else","render"]}],
     // 为构造函数中的渲染方法绑定事件处理程序
-    "react/jsx-no-bind": 1,
+    "react/jsx-no-bind": 0,
     // 用圆括号包裹跨越多行的JSX标签
     "react/jsx-wrap-multilines": 1,
     // Refs 始终使用引用回调

@@ -11,6 +11,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { MainLayout } from '@layout/main-layout';
 import 'normalize.css';
 import '!style-loader!css-loader!antd/dist/antd.css';
+import '!style-loader!css-loader!sass-loader!@assets/scss/index.scss';
 
 
 export default class App extends Component {

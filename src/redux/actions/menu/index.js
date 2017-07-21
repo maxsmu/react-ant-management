@@ -2,21 +2,27 @@ import { createActions } from 'redux-actions';
 
 export const QUERY_MENU_LIST = 'QUERY_MENU_LIST';
 
-const menuSetting = [
+const menuList = [
 	{
-		path: '/a',
-		name: 'a',
-		label: 'Page A'
+		path: '/dashboard',
+		name: 'Dashboard',
+		icon: 'pie-chart'
 	},
 	{
-		path: '/b',
-		name: 'b',
-		label: 'Page B'
+		path: '/dashboard',
+		name: 'Dashboard',
+		icon: 'pie-chart',
+		children: [
+			{
+				path: 'q',
+				name: 'Dashboard'
+			}
+		]
 	}
-];
+]
 
 const { queryMenuList } = createActions({
-	[QUERY_MENU_LIST]: () => Promise.resolve(menuSetting)
+	[QUERY_MENU_LIST]: () => Promise.resolve(menuList)
 });
 
 export default { queryMenuList };

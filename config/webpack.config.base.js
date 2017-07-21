@@ -17,7 +17,6 @@ const distPath = path.join(__dirname, '../dist');
 
 module.exports = {
 	devtool: 'cheap-module-source-map',
-
 	entry: {
 		chunk: [
 			'react',
@@ -44,7 +43,8 @@ module.exports = {
 			'@layout': path.resolve(sourcePath, './layouts'),
 			'@view': path.resolve(sourcePath, './views/'),
 			'@components': path.resolve(sourcePath, './components/'),
-			'@actions': path.resolve(sourcePath, './redux/actions/')
+			'@actions': path.resolve(sourcePath, './redux/actions/'),
+			'@assets': path.resolve(sourcePath, './assets/')
 		}
 	},
 	module: {
@@ -118,8 +118,17 @@ module.exports = {
 						loader: 'image-webpack-loader',
 						options: {
 							bypassOnDebug: true,
-							optimizationLevel: 7,
-							interlaced: false
+							query: {
+								mozjpeg: {
+									progressive: true,
+								},
+								gifsicle: {
+									interlaced: true,
+								},
+								optipng: {
+									optimizationLevel: 7,
+								}
+							}
 						}
 					}]
 			},

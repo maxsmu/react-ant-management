@@ -27,5 +27,6 @@ module.exports = {
 		})
 	].concat(baseConfig.plugins),
 	module: baseConfig.module,
-	resolve: baseConfig.resolve
+	resolve: baseConfig.resolve,
+	output: baseConfig.output
 }

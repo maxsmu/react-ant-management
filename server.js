@@ -23,8 +23,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 const middlewareSetting = {
-	publicPath: webpackConfig.publicPath,
-	buildPath: webpackConfig.buildPath,
+	publicPath: webpackConfig.output.publicPath,
+	buildPath: webpackConfig.output.path,
 	stats: {
 		colors: true,
 		cached: false
@@ -72,7 +72,6 @@ app.use((req, res, next) => {
 			res.send(resData);
 		});
 	})
-
 });
 
 // error
