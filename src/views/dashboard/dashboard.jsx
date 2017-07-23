@@ -9,19 +9,17 @@ import React from 'react';
 import { PanelItem, PanelWrapper } from '@components/panel';
 import { Echarts } from '@components/echarts';
 import cssStyles from './dashboard.scss';
-
-import option from './echartsConfig.js';
+import option from './echarts-option1.js';
+import option2 from './echarts-option2.js';
 // import { push } from 'react-router-redux';
 // import { connect } from 'react-redux';
 
 export default class Dashboard extends React.Component {
+	echartCallback(echartInstance, option, notMerge, lazyUpdate, echarts) {
+		option.series = getPieSeries(option.series[0].data, echartInstance, echarts);
+		echartInstance.setOption(option, notMerge, lazyUpdate);
+	}
 	render() {
-		// option.series.forEach(serie => {
-		// 	serie.data.forEach(item => {
-
-		// 	})
-		// })
-
 		return (
 			<section className={cssStyles.container}>
 				<PanelWrapper>
@@ -30,8 +28,35 @@ export default class Dashboard extends React.Component {
 					<PanelItem icon={'code'} pre={'￥'} value={12120} unit={'头'} description={'hshshshs'} />
 					<PanelItem icon={'code'} pre={'￥'} value={12120} unit={'头'} description={'hshshshs'} />
 				</PanelWrapper>
-				<Echarts type="calendar-pie" option={option} style={{ width: '100%', height: 500 }} />
+				<div className={cssStyles.panelWrapper}>
+					<Echarts className={cssStyles.panelChart} onCallback={this.echartCallback} option={option} style={{ width: '70%', height: 500 }} />
+					<Echarts className={cssStyles.panelChart} option={option2} style={{ width: '30%', height: 500 }} />
+				</div>
 			</section>
 		)
 	}
+}
+
+function getPieSeries(scatterData, echartInstance, echarts) {
+	return echarts.util.map(scatterData, (item, index) => {
+		const center = echartInstance.convertToPixel('calendar', item);
+		return {
+			id: index + 'pie',
+			type: 'pie',
+			center: center,
+			label: {
+				normal: {
+					formatter: '{c}',
+					position: 'inside'
+				}
+			},
+			radius: 30,
+			data: [
+				{ name: '工作', value: Math.round(Math.random() * 24) },
+				{ name: '娱乐', value: Math.round(Math.random() * 24) },
+				{ name: '睡觉', value: Math.round(Math.random() * 24) }
+			]
+		};
+
+	});
 }

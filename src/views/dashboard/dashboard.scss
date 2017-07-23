@@ -1,3 +1,13 @@
 .container {
     padding-top: 20px;
 }
+.panelWrapper {
+    display: flex;
+    overflow: hidden;
+
+    flex-flow: row nowrap;
+}
+
+.panelChart {
+    flex: auto;
+}

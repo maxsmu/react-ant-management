@@ -56,7 +56,7 @@ export default class Echarts extends Component {
 	 * 渲染echarts容器
 	 */
 	renderEchart() {
-		const { option, notMerge, lazyUpdate, config } = this.props;
+		const { option, notMerge, lazyUpdate, config, onCallback } = this.props;
 
 		// 获取容器DOM
 		const echartDom = this.echartsElement;
@@ -97,22 +97,15 @@ export default class Echarts extends Component {
 		} else {
 			// 关闭加载中状态
 			echartInstance.hideLoading();
-			// option.series = this.getPieSeries(option.series[0].data, echartInstance);
 
-			// console.log(option.series[0].data);
 			// 显示数据
 			echartInstance.setOption(option, notMerge, lazyUpdate);
 		}
 
-	}
-	getPieSeries(scatterData, echartInstance) {
-		return echarts.util.map(scatterData, (item, index) => {
-			var center = echartInstance.convertToPixel('calendar', item);
-			return {
-				id: index + 'pie',
-				center: center
-			};
-		});
+		// 如若存在回调，则执行
+		if (onCallback) {
+			onCallback(echartInstance, option, notMerge, lazyUpdate, echarts, echartDom);
+		}
 	}
 	render() {
 		const { className, style } = this.props;
