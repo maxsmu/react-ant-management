@@ -61,12 +61,12 @@ export default {
 				normal: {
 					show: true,
 					offset: [
-						-30,
-						-30
+						-25,
+						-25
 					],
 					textStyle: {
 						color: '#000',
-						fontSize: 12
+						fontSize: 10
 					}
 				}
 			},

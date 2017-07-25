@@ -16,7 +16,7 @@ export default class Echarts extends Component {
 		option: {},
 		className: '', // 容器样式
 		config: {
-			theme: 'default' // 主题
+			// theme: 'default' // 主题
 			// event: 事件
 			// showLoading: 是否显示加载中
 			// loadingOption: 加载效果设置
@@ -30,23 +30,29 @@ export default class Echarts extends Component {
 	}
 	state = {
 		// 是否需要初始化,第一次创建或者主题发生变化需要init
-		needInit: false,
-		refresh: false
+		needInit: false
 	}
 	componentDidMount() {
 		this.renderEchart();
 	}
 	componentWillReceiveProps(nextProps) {
-		// 如果主题切换,需要重新创建实例,因为ECharts的主题设置api在init中,
-		if (this.props.config && nextProps.config && (this.props.config.theme !== nextProps.config.theme)) {
+		const { config } = this.props;
+		const nextConfig = nextProps.config;
+		let theme;
+		let nextTheme;
+		if (config) {
+			theme = config.theme;
+		}
+		if (nextConfig) {
+			nextTheme = nextConfig.theme;
+		}
+		// 如果主题切换,需要重新创建实例,因为ECharts的主题设置api在init中
+		if (theme !== nextTheme) {
 			this.setState({ needInit: true })
 		}
 	}
 	shouldComponentUpdate(nextProps, nextState) {
 		return reactAddonsShallowCompare(this, nextProps, nextState);
-	}
-	componentDidUpdate() {
-		this.renderEchart()
 	}
 	componentWillUnmount() {
 		// 卸载组件时销毁实例
@@ -57,7 +63,6 @@ export default class Echarts extends Component {
 	 */
 	renderEchart() {
 		const { option, notMerge, lazyUpdate, config, onCallback } = this.props;
-
 		// 获取容器DOM
 		const echartDom = this.echartsElement;
 
@@ -100,11 +105,11 @@ export default class Echarts extends Component {
 
 			// 显示数据
 			echartInstance.setOption(option, notMerge, lazyUpdate);
-		}
 
-		// 如若存在回调，则执行
-		if (onCallback) {
-			onCallback(echartInstance, option, notMerge, lazyUpdate, echarts, echartDom);
+			// 如若存在回调，则执行
+			if (onCallback) {
+				onCallback(echartInstance, option, notMerge, lazyUpdate, echarts, echartDom);
+			}
 		}
 	}
 	render() {

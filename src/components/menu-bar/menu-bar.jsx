@@ -26,6 +26,7 @@ export default class MenuBar extends Component {
 		});
 	}
 	render() {
+		const { menus = [] } = this.props;
 		// menuList,
 		let boxStyle = {}
 
@@ -36,6 +37,63 @@ export default class MenuBar extends Component {
 				flex: this.state.collapsed ? '0 0 60px' : '0 0 210px'
 			}
 		}
+
+		const subMenus = menus.map(menu => {
+			// 是否存在子菜单
+			const isHasChildren = Array.isArray(menu.children) && menu.children.lenght > 0;
+			let icon;
+
+			// 根据是否存在子类分类处理
+			if (isHasChildren) {
+				// 若存在iconfont 则使用（但优先级低于icon）
+				if (menu.iconfont) {
+					icon = <i className={`iconfont ${menu.iconfont} ${cssStyle.iconfont}`} />
+				}
+
+				// 若存在icon 则使用（但优先级高于iconfont）
+				if (menu.icon) {
+					icon = <Icon type={menu.icon} />
+				}
+				const title = <span>{icon}<span>{menu.name}</span></span>;
+
+				return (
+					<SubMenu key={menu.key} title={title}>
+						{
+							menu.children.map(sub => {
+								return (
+									<Menu.Item key={sub.key}>
+										<Link to={sub.path}>
+											<span>{sub.name}</span>
+										</Link>
+									</Menu.Item>
+								);
+							})
+						}
+					</SubMenu>
+				);
+
+			} else {
+				// 若存在iconfont 则使用（但优先级低于icon）
+				if (menu.iconfont) {
+					icon = <i className={`iconfont ${menu.iconfont} ${cssStyle.iconfont}`} />
+				}
+
+				// 若存在icon 则使用（但优先级高于iconfont）
+				if (menu.icon) {
+					icon = <Icon type={menu.icon} />
+				}
+
+				return (
+					<Menu.Item key={menu.key}>
+						<Link to={menu.path}>
+							{icon}
+							<span>{menu.name}</span>
+						</Link>
+					</Menu.Item>
+				);
+			}
+		});
+
 		return (
 			<div style={boxStyle} >
 				<Button className={cssStyle.sidebarToggleBtn} ghost type="primary" onClick={this.toggleCollapsed}>
@@ -49,13 +107,10 @@ export default class MenuBar extends Component {
 					style={{ height: '100%', overflowY: 'scroll' }}
 					inlineCollapsed={this.state.collapsed}
 				>
-					<Menu.Item key="1">
-						<Link to="/dashboard">
-							<Icon type="pie-chart" />
-							<span>Dashboard</span>
-						</Link>
-					</Menu.Item>
-					<Menu.Item key="2">
+
+					{subMenus}
+
+					{/* <Menu.Item key="2">
 						<Icon type="desktop" />
 						<span>Option 2</span>
 					</Menu.Item>
@@ -76,7 +131,7 @@ export default class MenuBar extends Component {
 							<Menu.Item key="11">Option 11</Menu.Item>
 							<Menu.Item key="12">Option 12</Menu.Item>
 						</SubMenu>
-					</SubMenu>
+					</SubMenu> */}
 				</Menu>
 			</div>
 		);

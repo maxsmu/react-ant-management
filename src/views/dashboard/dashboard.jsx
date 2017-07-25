@@ -57,6 +57,7 @@ export default class Dashboard extends React.Component {
 function genPieSeries(scatterData, echartInstance, echarts) {
 	return echarts.util.map(scatterData, (item, index) => {
 		const center = echartInstance.convertToPixel('calendar', item);
+		// console.log(item, center);
 		return {
 			id: index + 'pie',
 			type: 'pie',
@@ -70,9 +71,9 @@ function genPieSeries(scatterData, echartInstance, echarts) {
 			// 扇面半径
 			radius: 25,
 			data: [
-				{ name: '工作', value: Math.round(Math.random() * 24) },
-				{ name: '娱乐', value: Math.round(Math.random() * 24) },
-				{ name: '睡觉', value: Math.round(Math.random() * 24) }
+				{ name: '工作', value: index > 4 ? Math.round(Math.random() * 24) : 10 },
+				{ name: '娱乐', value: index > 4 ? Math.round(Math.random() * 24) : 10 },
+				{ name: '睡觉', value: index > 4 ? Math.round(Math.random() * 24) : 10 }
 			]
 		};
 	});
