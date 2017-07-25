@@ -3,11 +3,8 @@
 }
 .panelWrapper {
     display: flex;
-    overflow: hidden;
+
+    margin: 20px 0;
 
     flex-flow: row nowrap;
-}
-
-.panelChart {
-    flex: auto;
 }

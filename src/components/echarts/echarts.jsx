@@ -16,7 +16,7 @@ export default class Echarts extends Component {
 		option: {},
 		className: '', // 容器样式
 		config: {
-			// theme: 主题
+			theme: 'default' // 主题
 			// event: 事件
 			// showLoading: 是否显示加载中
 			// loadingOption: 加载效果设置
@@ -38,7 +38,7 @@ export default class Echarts extends Component {
 	}
 	componentWillReceiveProps(nextProps) {
 		// 如果主题切换,需要重新创建实例,因为ECharts的主题设置api在init中,
-		if (this.props.config.theme !== nextProps.config.theme) {
+		if (this.props.config && nextProps.config && (this.props.config.theme !== nextProps.config.theme)) {
 			this.setState({ needInit: true })
 		}
 	}

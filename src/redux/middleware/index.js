@@ -8,7 +8,7 @@
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux'
 import promiseMiddleware from 'redux-promise'
-import createLogger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 
 const browserHistory = createBrowserHistory()

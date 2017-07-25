@@ -19,9 +19,12 @@ export default {
 		left: 100,
 		orient: 'vertical',
 		cellSize: [
-			80,
-			80
+			70,
+			70
 		],
+		splitLine: {
+			show: false
+		},
 		yearLabel: {
 			show: false,
 			textStyle: {
@@ -63,7 +66,7 @@ export default {
 					],
 					textStyle: {
 						color: '#000',
-						fontSize: 14
+						fontSize: 12
 					}
 				}
 			},

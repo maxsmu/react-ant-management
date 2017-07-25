@@ -36,7 +36,6 @@ export default class MenuBar extends Component {
 				flex: this.state.collapsed ? '0 0 60px' : '0 0 210px'
 			}
 		}
-
 		return (
 			<div style={boxStyle} >
 				<Button className={cssStyle.sidebarToggleBtn} ghost type="primary" onClick={this.toggleCollapsed}>

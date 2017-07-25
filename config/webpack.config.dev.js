@@ -23,7 +23,7 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': '"dev"'
+			'process.env.NODE_ENV': '"development"'
 		})
 	].concat(baseConfig.plugins),
 	module: baseConfig.module,

@@ -7,7 +7,13 @@
 */
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import menuReducer from './menu.reducer';
+
+/**
+ * combineReducers 合并Reducers
+ */
 const reducers = combineReducers({
+	menuReducer,
 	routing: routerReducer
 });
 
