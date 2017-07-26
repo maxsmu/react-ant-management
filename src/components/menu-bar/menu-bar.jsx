@@ -38,102 +38,83 @@ export default class MenuBar extends Component {
 			}
 		}
 
-		const subMenus = menus.map(menu => {
-			// 是否存在子菜单
-			const isHasChildren = Array.isArray(menu.children) && menu.children.lenght > 0;
-			let icon;
-
-			// 根据是否存在子类分类处理
-			if (isHasChildren) {
-				// 若存在iconfont 则使用（但优先级低于icon）
-				if (menu.iconfont) {
-					icon = <i className={`iconfont ${menu.iconfont} ${cssStyle.iconfont}`} />
-				}
-
-				// 若存在icon 则使用（但优先级高于iconfont）
-				if (menu.icon) {
-					icon = <Icon type={menu.icon} />
-				}
-				const title = <span>{icon}<span>{menu.name}</span></span>;
-
-				return (
-					<SubMenu key={menu.key} title={title}>
-						{
-							menu.children.map(sub => {
-								return (
-									<Menu.Item key={sub.key}>
-										<Link to={sub.path}>
-											<span>{sub.name}</span>
-										</Link>
-									</Menu.Item>
-								);
-							})
-						}
-					</SubMenu>
-				);
-
-			} else {
-				// 若存在iconfont 则使用（但优先级低于icon）
-				if (menu.iconfont) {
-					icon = <i className={`iconfont ${menu.iconfont} ${cssStyle.iconfont}`} />
-				}
-
-				// 若存在icon 则使用（但优先级高于iconfont）
-				if (menu.icon) {
-					icon = <Icon type={menu.icon} />
-				}
-
-				return (
-					<Menu.Item key={menu.key}>
-						<Link to={menu.path}>
-							{icon}
-							<span>{menu.name}</span>
-						</Link>
-					</Menu.Item>
-				);
-			}
-		});
-
 		return (
 			<div style={boxStyle} >
-				<Button className={cssStyle.sidebarToggleBtn} ghost type="primary" onClick={this.toggleCollapsed}>
-					<Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} style={{ color: '#797979' }} />
+				<Button
+					ghost
+					onClick={this.toggleCollapsed}
+					className={cssStyle.sidebarToggleBtn}
+					type="primary"
+				>
+					<Icon
+						type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+						style={{ color: '#797979' }}
+					/>
 				</Button>
 				<Menu
 					defaultSelectedKeys={['1']}
-					defaultOpenKeys={['sub1']}
+					defaultOpenKeys={['1']}
 					mode="inline"
 					theme="dark"
 					style={{ height: '100%', overflowY: 'scroll' }}
 					inlineCollapsed={this.state.collapsed}
 				>
-
-					{subMenus}
-
-					{/* <Menu.Item key="2">
-						<Icon type="desktop" />
-						<span>Option 2</span>
-					</Menu.Item>
-					<Menu.Item key="3">
-						<Icon type="inbox" />
-						<span>Option 3</span>
-					</Menu.Item>
-					<SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-						<Menu.Item key="5">Option 5</Menu.Item>
-						<Menu.Item key="6">Option 6</Menu.Item>
-						<Menu.Item key="7">Option 7</Menu.Item>
-						<Menu.Item key="8">Option 8</Menu.Item>
-					</SubMenu>
-					<SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
-						<Menu.Item key="9">Option 9</Menu.Item>
-						<Menu.Item key="10">Option 10</Menu.Item>
-						<SubMenu key="sub3" title="Submenu">
-							<Menu.Item key="11">Option 11</Menu.Item>
-							<Menu.Item key="12">Option 12</Menu.Item>
-						</SubMenu>
-					</SubMenu> */}
+					{genSubMenuNode(menus)}
 				</Menu>
 			</div>
 		);
 	}
+}
+
+/**
+ * 生成菜单
+ * @param {Array} subMenusList 菜单列表
+ */
+function genSubMenuNode(subMenusList = []) {
+	return subMenusList.map(sub => {
+		// 是否存在子菜单
+		const isHasChildren = Array.isArray(sub.children) && sub.children.length > 0;
+		// icon组件
+		let icon;
+
+		// 根据是否存在子类分类处理
+		if (isHasChildren) {
+			// 若存在iconfont 则使用（但优先级低于icon）
+			if (sub.iconfont) {
+				icon = <i className={`iconfont ${sub.iconfont} ${cssStyle.iconfont}`} />
+			}
+
+			// 若存在icon 则使用（但优先级高于iconfont）
+			if (sub.icon) {
+				icon = <Icon type={sub.icon} />
+			}
+
+			// 菜单Title
+			const title = <span>{icon}<span>{sub.name}</span></span>;
+
+			return (
+				<SubMenu key={sub.key} title={title}>
+					{genSubMenuNode(sub.children)}
+				</SubMenu>
+			);
+		} else {
+			// 若存在iconfont 则使用（但优先级低于icon）
+			if (sub.iconfont) {
+				icon = <i className={`iconfont ${sub.iconfont} ${cssStyle.iconfont}`} />
+			}
+
+			// 若存在icon 则使用（但优先级高于iconfont）
+			if (sub.icon) {
+				icon = <Icon type={sub.icon} />
+			}
+			return (
+				<Menu.Item key={sub.key}>
+					<Link to={sub.path}>
+						{icon}
+						<span>{sub.name}</span>
+					</Link>
+				</Menu.Item>
+			);
+		}
+	});
 }

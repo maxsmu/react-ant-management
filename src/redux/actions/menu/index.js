@@ -21,34 +21,17 @@ const menuList = [
 		key: '2',
 		path: '/archives',
 		name: '档案管理',
-		icon: 'idcard',
-		children: [
-			{
-				key: '2.1',
-				path: '/dashboard',
-				name: 'Dashboard'
-			},
-			{
-				key: '2.2',
-				path: '/dashboard',
-				name: 'Dashboard'
-			},
-			{
-				key: '2.3',
-				path: '/dashboard',
-				name: 'Dashboard'
-			}
-		]
+		icon: 'idcard'
 	},
 	{
 		key: '3',
-		path: '/dashboard',
+		path: '/prevention',
 		name: '动物防疫',
 		iconfont: 'icon-fangyizhen'
 	},
 	{
 		key: '4',
-		path: '/dashboard',
+		path: '/drug',
 		name: '药品录入',
 		icon: 'medicine-box'
 	}

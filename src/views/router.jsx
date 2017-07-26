@@ -9,9 +9,15 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { Dashboard } from '@view/dashboard';
+import { Archives } from '@view/archives';
+import { Prevention } from '@view/prevention';
+import { Drug } from '@view/drug';
 
 export const Router = (
 	<Switch>
 		<Route path="/dashboard" component={Dashboard} />
+		<Route path="/archives" component={Archives} />
+		<Route path="/prevention" component={Prevention} />
+		<Route path="/drug" component={Drug} />
 	</Switch>
 )
