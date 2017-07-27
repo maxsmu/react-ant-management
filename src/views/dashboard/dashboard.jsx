@@ -25,7 +25,7 @@ export default class Dashboard extends React.Component {
 	}
 	render() {
 		return (
-			<section className={cssStyles.container}>
+			<section>
 				<PanelWrapper>
 					<PanelItem iconfont={'icon-mating-log'} description={'hshshshs'} />
 					<PanelItem icon={'heart-o'} pre={'￥'} value={12120} unit={'头'} description={'hshshshs'} />

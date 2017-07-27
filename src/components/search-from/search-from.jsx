@@ -85,7 +85,7 @@ export default class SearchFrom extends Component {
 	}
 	render() {
 		return (
-			<div style={{ marginTop: 20, marginBottom: 20 }}>
+			<div style={{ marginTop: 5, marginBottom: 5 }}>
 				<Form onSubmit={this.handleSearch} >
 					<Row gutter={40}>{this.genFields()}</Row>
 					<Row>
