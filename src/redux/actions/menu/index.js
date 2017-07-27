@@ -14,8 +14,13 @@ const menuList = [
 	{
 		path: '/dashboard',
 		name: 'Dashboard',
-		icon: 'pie-chart',
-		key: '1'
+		icon: 'pie-chart'
+	},
+	{
+		path: '/monitoring',
+		name: '生产监控',
+		icon: 'eye-o',
+		children: []
 	},
 	{
 		key: '2',

@@ -9,14 +9,33 @@ import React, { Component } from 'react';
 import { Menu, Icon, Button } from 'antd';
 import cssStyle from './menu-bar.scss';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const SubMenu = Menu.SubMenu;
-
+@withRouter
 export default class MenuBar extends Component {
 	state = {
-		collapsed: false
+		collapsed: false,
+		selectedKeys: []
 	}
+	componentDidMount() {
+		const { history } = this.props
+		// console.log(history.location.pathname);
+		this.setState({
+			selectedKeys: [history.location.pathname]
+			// ,
+			// openKeys: [getSubMenuKey(history.location.pathname)]
+		})
+
+		this.listenRoute = history.listen(location => {
+			this.setState({
+				selectedKeys: [location.pathname]
+				// ,
+				// openKeys: [getSubMenuKey(location.pathname)]
+			})
+		})
+	}
+
 	/**
 	 * 点击收起按钮触发时间
 	 */
@@ -52,8 +71,7 @@ export default class MenuBar extends Component {
 					/>
 				</Button>
 				<Menu
-					defaultSelectedKeys={['1']}
-					defaultOpenKeys={['1']}
+					selectedKeys={this.state.selectedKeys}
 					mode="inline"
 					theme="dark"
 					style={{ height: '100%', overflowY: 'scroll' }}
@@ -93,7 +111,7 @@ function genSubMenuNode(subMenusList = []) {
 			const title = <span>{icon}<span>{sub.name}</span></span>;
 
 			return (
-				<SubMenu key={sub.key} title={title}>
+				<SubMenu key={sub.path} title={title}>
 					{genSubMenuNode(sub.children)}
 				</SubMenu>
 			);
@@ -108,7 +126,7 @@ function genSubMenuNode(subMenusList = []) {
 				icon = <Icon type={sub.icon} />
 			}
 			return (
-				<Menu.Item key={sub.key}>
+				<Menu.Item key={sub.path}>
 					<Link to={sub.path}>
 						{icon}
 						<span>{sub.name}</span>
@@ -118,3 +136,8 @@ function genSubMenuNode(subMenusList = []) {
 		}
 	});
 }
+
+// // 获取当前页面所属的上级菜单
+// function getSubMenuKey(pathname) {
+// 	return pathname.indexOf('business') > -1 ? 'business' : ''
+// }

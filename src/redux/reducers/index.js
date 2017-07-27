@@ -7,13 +7,15 @@
 */
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import menuReducer from './menu.reducer';
 
+import menuReducer from './menu.reducer';
+import archiveReducer from './archive.reducer';
 /**
  * combineReducers 合并Reducers
  */
 const reducers = combineReducers({
 	menuReducer,
+	archiveReducer,
 	routing: routerReducer
 });
 

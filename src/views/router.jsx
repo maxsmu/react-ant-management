@@ -8,10 +8,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { Dashboard } from '@view/dashboard';
-import { Archives } from '@view/archives';
-import { Prevention } from '@view/prevention';
 import { Drug } from '@view/drug';
+import { Archives } from '@view/archives';
+import { Dashboard } from '@view/dashboard';
+import { Prevention } from '@view/prevention';
+import { Monitoring } from '@view/monitoring';
 
 export const Router = (
 	<Switch>
@@ -19,5 +20,6 @@ export const Router = (
 		<Route path="/archives" component={Archives} />
 		<Route path="/prevention" component={Prevention} />
 		<Route path="/drug" component={Drug} />
+		<Route path="/monitoring" component={Monitoring} />
 	</Switch>
 )

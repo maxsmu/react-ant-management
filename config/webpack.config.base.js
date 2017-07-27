@@ -44,7 +44,8 @@ module.exports = {
 			'@view': path.resolve(sourcePath, './views/'),
 			'@components': path.resolve(sourcePath, './components/'),
 			'@actions': path.resolve(sourcePath, './redux/actions/'),
-			'@assets': path.resolve(sourcePath, './assets/')
+			'@assets': path.resolve(sourcePath, './assets/'),
+			'@utils':path.resolve(sourcePath,'./utils')
 		}
 	},
 	module: {

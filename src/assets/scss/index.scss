@@ -1,5 +1,12 @@
+#root{
+	position: relative;
+	z-index: 1;
+}
 .iconfont {
-    line-height: 1;
+	line-height: 1;
+	&.mr8{
+		margin-right: 8px;
+	}
 }
 
 // 若menu 使用iconfont ，则进行特殊处理

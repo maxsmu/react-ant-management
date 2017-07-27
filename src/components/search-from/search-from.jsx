@@ -9,7 +9,8 @@ import React, { Component } from 'react';
 import { Form, Row, Col, Input, Button, Icon, InputNumber, Select, DatePicker } from 'antd';
 const FormItem = Form.Item;
 
-class Search extends Component {
+@Form.create()
+export default class SearchFrom extends Component {
 	state = {
 		expand: false
 	};
@@ -103,5 +104,3 @@ class Search extends Component {
 		);
 	}
 }
-
-export const SearchFrom = Form.create()(Search);

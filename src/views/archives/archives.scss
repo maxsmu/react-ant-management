@@ -1,8 +1,13 @@
 .archiveContainer {
+	z-index: 1;
     .handleBox {
         margin: 20px 0;
         button {
             margin-right: 10px;
         }
-    }
+	}
+	.wrapClassName{
+		// position: relative;
+		// z-index: 2003;
+	}
 }

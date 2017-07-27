@@ -6,87 +6,41 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
-import { Table, Icon, Row, Col, Button } from 'antd';
-
+import { Row, Col, Button } from 'antd';
+import { connect } from 'react-redux';
+import browser from '@utils/browser.util';
 import cssStyle from './archives.scss';
 import { SearchFrom } from '@components/search-from';
+import ArhiveCreator from './create/create';
+import BatchImportor from './batch-import/batch-import';
+import ArchiveTable from './table/table';
+import archiveAction from '@actions/archive';
 
+@connect(
+	state => {
+		const { archiveReducer } = state;
+		return {
+			...archiveReducer
+		}
+	}
+)
+@browser.init('档案管理')
 export default class ArchivesForm extends Component {
-	onSearchSubmit = (error, value) => {
-		console.log(error, value);
+	onCreateArchive = () => {
+		this.props.dispatch(archiveAction.create(true))
+	}
+	onBatchImport = () => {
+		this.props.dispatch(archiveAction.batchImport(true));
+	}
+	onSearchSubmit = () => {
+		// error, value
+		// console.log(error, value);
 	}
 	render() {
 		const layout = {
 			labelCol: { span: 5 },
 			wrapperCol: { span: 19 }
 		};
-
-		const columns = [
-			{
-				title: 'Name',
-				dataIndex: 'name',
-				key: 'name',
-				render: text => <a href="#">{text}</a>
-			},
-			{
-				title: 'Age',
-				dataIndex: 'age',
-				key: 'age'
-			},
-			{
-				title: 'Address',
-				dataIndex: 'address',
-				key: 'address'
-			},
-			{
-				title: 'Action',
-				key: 'action',
-				render: (text, record) => (
-					<span>
-						<a href="#">Action 一 {record.name}</a>
-						<span className="ant-divider" />
-						<a href="#">Delete</a>
-						<span className="ant-divider" />
-						<a href="#" className="ant-dropdown-link">
-							More actions <Icon type="down" />
-						</a>
-					</span>
-				)
-			}];
-
-		const data = [
-			{
-				key: '1',
-				name: 'John Brown',
-				age: 32,
-				address: 'New York No. 1 Lake Park'
-			},
-			{
-				key: '2',
-				name: 'Jim Green',
-				age: 42,
-				address: 'London No. 1 Lake Park'
-			},
-			{
-				key: '3',
-				name: 'Joe Black',
-				age: 32,
-				address: 'Sidney No. 1 Lake Park'
-			},
-			{
-				key: '4',
-				name: 'Joe Black',
-				age: 32,
-				address: 'Sidney No. 1 Lake Park'
-			},
-			{
-				key: '5',
-				name: 'Joe Black',
-				age: 32,
-				address: 'Sidney No. 1 Lake Park'
-			}
-		];
-
 
 		// search config
 		const fields = [
@@ -116,11 +70,13 @@ export default class ArchivesForm extends Component {
 				<SearchFrom fields={fields} onSearch={this.onSearchSubmit} />
 				<Row className={cssStyle.handleBox}>
 					<Col span={24}>
-						<Button type="primary">批量导入</Button>
-						<Button type="primary" icon="download">模板下载</Button>
+						<Button type="primary" icon="plus-circle-o" onClick={this.onCreateArchive}>创建档案</Button>
+						<Button type="primary" onClick={this.onBatchImport}><i className="iconfont icon-batchimport mr8" />批量导入</Button>
 					</Col>
 				</Row>
-				<Table bordered columns={columns} dataSource={data} />
+				<ArchiveTable />
+				<ArhiveCreator />
+				<BatchImportor />
 			</section>
 		);
 	}
