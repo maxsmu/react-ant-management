@@ -7,6 +7,7 @@
 */
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
+import browser from '@utils/browser.util';
 import { Echarts } from '@components/echarts';
 import { SearchFrom } from '@components/search-from';
 
@@ -14,6 +15,7 @@ import MonitoringTable from './table/table';
 import option from './echarts-option.js';
 import cssStyles from './monitoring.scss';
 
+@browser.init('生产监控')
 export default class Monitoring extends Component {
 	onSearchSubmit = () => {
 		// error, value
@@ -52,11 +54,11 @@ export default class Monitoring extends Component {
 			<section>
 				<Row className={cssStyles.wrapperEcharts}>
 					<Col span={24}>
-						<Echarts option={option} style={{ width: 1000, height: 300 }} />
+						<Echarts option={option} style={{ width: '95%', height: 300 }} />
 					</Col>
 				</Row>
-				<SearchFrom fields={fields} onSearch={this.onSearchSubmit} />
-				<MonitoringTable />
+				<SearchFrom fields={fields} onSearch={this.onSearchSubmit} count={4} />
+				<MonitoringTable style={{ marginTop: 25 }} />
 			</section >
 		);
 	}

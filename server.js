@@ -6,6 +6,8 @@
  * @gitHub: https://github.com/maxsmu
 */
 const open = require('open');
+const path = require('path');
+const favicon = require('serve-favicon');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -36,6 +38,7 @@ app.use(webpackDevMiddleware(compiler, middlewareSetting));
 app.use(webpackHotMiddleware(compiler));
 app.use(express.static(webpackConfig.output.path));
 
+app.use(favicon(path.resolve(__dirname, './src/assets/favicon.png')));
 app.use(morgan('dev'));
 
 const router = express.Router();

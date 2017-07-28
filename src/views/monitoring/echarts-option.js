@@ -35,6 +35,7 @@ export default {
 					position: 'insideRight'
 				}
 			},
+			barMaxWidth: 50,
 			data: [320, 302, 301, 334, 390, 330, 320]
 		},
 		{

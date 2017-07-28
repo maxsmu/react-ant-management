@@ -6,7 +6,8 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
-import { Menu, Icon, Button } from 'antd';
+import PropTypes from 'prop-types';
+import { Menu, Icon } from 'antd';
 import cssStyle from './menu-bar.scss';
 
 import { Link, withRouter } from 'react-router-dom';
@@ -14,6 +15,12 @@ import { Link, withRouter } from 'react-router-dom';
 const SubMenu = Menu.SubMenu;
 @withRouter
 export default class MenuBar extends Component {
+	static defaultProps = {
+		menus: []
+	};
+	static propTypes = {
+		menus: PropTypes.array.isRequired
+	};
 	state = {
 		collapsed: false,
 		selectedKeys: []
@@ -45,41 +52,18 @@ export default class MenuBar extends Component {
 		});
 	}
 	render() {
-		const { menus = [] } = this.props;
-		// menuList,
-		let boxStyle = {}
-
-		// 接受父类组件设置的样式，存在则使用
-		if (this.props.style) {
-			boxStyle = {
-				...this.props.style,
-				flex: this.state.collapsed ? '0 0 60px' : '0 0 210px'
-			}
-		}
+		const { menus } = this.props;
 
 		return (
-			<div style={boxStyle} >
-				<Button
-					ghost
-					onClick={this.toggleCollapsed}
-					className={cssStyle.sidebarToggleBtn}
-					type="primary"
-				>
-					<Icon
-						type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-						style={{ color: '#797979' }}
-					/>
-				</Button>
-				<Menu
-					selectedKeys={this.state.selectedKeys}
-					mode="inline"
-					theme="dark"
-					style={{ height: '100%', overflowY: 'scroll' }}
-					inlineCollapsed={this.state.collapsed}
-				>
-					{genSubMenuNode(menus)}
-				</Menu>
-			</div>
+			<Menu
+				selectedKeys={this.state.selectedKeys}
+				mode="inline"
+				theme="dark"
+				style={{ height: '100%', overflowY: 'scroll' }}
+				inlineCollapsed={this.state.collapsed}
+			>
+				{genSubMenuNode(menus)}
+			</Menu>
 		);
 	}
 }

@@ -6,18 +6,20 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React from 'react';
+import { Row, Col } from 'antd';
+import browser from '@utils/browser.util';
 // import { connect } from 'react-redux';
 // import { createSelector } from 'reselect';
 
 import { PanelItem, PanelWrapper } from '@components/panel';
 import { Echarts } from '@components/echarts';
 
-import cssStyles from './dashboard.scss';
+// import cssStyles from './dashboard.scss';
 
 import option from './echarts-option1.js';
 import option2 from './echarts-option2.js';
 // import { push } from 'react-router-redux';
-
+@browser.init('Dashboard')
 export default class Dashboard extends React.Component {
 	echartCallback(echartInstance, option, notMerge, lazyUpdate, echarts) {
 		option.series = genPieSeries(option.series[0].data, echartInstance, echarts);
@@ -27,19 +29,19 @@ export default class Dashboard extends React.Component {
 		return (
 			<section>
 				<PanelWrapper>
-					<PanelItem iconfont={'icon-mating-log'} description={'hshshshs'} />
+					<PanelItem iconfont={'icon-mating-log'} value={0} description={'hshshshs'} />
 					<PanelItem icon={'heart-o'} pre={'￥'} value={12120} unit={'头'} description={'hshshshs'} />
 					<PanelItem icon={'code'} pre={'￥'} value={12120} unit={'头'} description={'hshshshs'} />
 					<PanelItem icon={'code'} pre={'￥'} value={12120} unit={'头'} description={'hshshshs'} />
 				</PanelWrapper>
-				<div className={cssStyles.panelWrapper}>
-					<div style={{ flex: '0 0 60%' }}>
-						<Echarts onCallback={this.echartCallback} option={option} style={{ width: 600, height: 450 }} />
-					</div>
-					<div style={{ flex: '0 0 40%' }}>
-						<Echarts option={option2} style={{ width: 400, height: 450 }} />
-					</div>
-				</div>
+				<Row>
+					<Col span={16}>
+						<Echarts onCallback={this.echartCallback} option={option} style={{ width: '100%', height: 450 }} />
+					</Col>
+					<Col span={8}>
+						<Echarts option={option2} style={{ width: '100%', height: 450, display: 'block' }} />
+					</Col>
+				</Row>
 			</section>
 		)
 	}

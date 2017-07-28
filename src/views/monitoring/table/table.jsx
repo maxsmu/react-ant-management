@@ -44,7 +44,14 @@ export default class MonitoringTable extends Component {
 			{
 				title: '备注',
 				dataIndex: 'remark'
-			}];
+			},
+			{
+				title: '操作',
+				render: () => {
+					return <a href="#">Delete</a>
+				}
+			}
+		];
 
 		const data = [
 			{
@@ -74,8 +81,9 @@ export default class MonitoringTable extends Component {
 				remark: '这就是一个备注信息'
 			}
 		];
+		const { ...others } = this.props;
 		return (
-			<Table bordered rowKey="id" columns={columns} dataSource={data} />
+			<Table bordered rowKey="id" columns={columns} dataSource={data} {...others} />
 		);
 	}
 }

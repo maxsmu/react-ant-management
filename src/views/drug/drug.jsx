@@ -6,7 +6,9 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
+import browser from '@utils/browser.util';
 
+@browser.init('药品录入')
 export default class Drug extends Component {
 	render() {
 		return (

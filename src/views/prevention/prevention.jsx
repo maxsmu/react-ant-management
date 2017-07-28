@@ -6,7 +6,9 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
+import browser from '@utils/browser.util';
 
+@browser.init('动物防疫')
 export default class Prevention extends Component {
 	render() {
 		return (

@@ -18,13 +18,17 @@ $headerHeight: 60px;
     border-bottom: 1px solid #c9aa5f;
     background: #2b3643;
 }
+.trigger{
+	color: #fff;
+	font-size: 20px;
+	margin-left: 10px;
+}
 .logoBox {
     display: inline-block;
 
     width: 200px;
     height: $headerHeight;
-    margin-left: 60px;
-    padding-top: 15px;
+    margin-left: 10px;
     padding-left: 6px;
     a {
         font-size: 20px;
@@ -39,7 +43,10 @@ $headerHeight: 60px;
 
     cursor: pointer;
     .IconBox {
-        padding: 6px 5px 3px 5px;
+        line-height: 40px;
+
+        height: 35px;
+        padding: 0 5px;
 
         border: solid 1px #797979;
         border-radius: 3px;
@@ -47,6 +54,4 @@ $headerHeight: 60px;
 }
 .logoutBox {
     float: right;
-
-    padding-top: 15px;
 }

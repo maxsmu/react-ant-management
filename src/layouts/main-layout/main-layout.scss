@@ -1,12 +1,7 @@
-.main {
-    position: fixed;
-    z-index: 1002;
-    top: 60px;
+.mainContent {
+    overflow: auto;
 
-    display: flex;
+    padding: 0 20px;
 
-    width: 100%;
-    height: calc(100vh - 60px);
-
-    flex-flow: row nowrap;
+    background: #fff;
 }
