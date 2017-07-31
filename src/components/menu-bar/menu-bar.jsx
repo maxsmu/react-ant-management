@@ -59,7 +59,7 @@ export default class MenuBar extends Component {
 				selectedKeys={this.state.selectedKeys}
 				mode="inline"
 				theme="dark"
-				style={{ height: '100%', overflowY: 'scroll' }}
+				style={{ height: '100%', overflowY: 'auto' }}
 				inlineCollapsed={this.state.collapsed}
 			>
 				{genSubMenuNode(menus)}

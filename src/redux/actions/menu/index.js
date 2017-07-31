@@ -17,10 +17,24 @@ const menuList = [
 		icon: 'pie-chart'
 	},
 	{
+		path: '/basic',
+		name: '基础数据配置',
+		icon: 'setting'
+	},
+	{
 		path: '/monitoring',
-		name: '生产监控',
+		name: '生产事务',
 		icon: 'eye-o',
-		children: []
+		children: [
+			{
+				path: '/monitoring/breeding',
+				name: '母猪监控'
+			},
+			{
+				path: '/monitoring/standby',
+				name: '后备母猪管理'
+			}
+		]
 	},
 	{
 		key: '2',
@@ -32,12 +46,18 @@ const menuList = [
 		key: '3',
 		path: '/prevention',
 		name: '动物防疫',
-		iconfont: 'icon-fangyizhen'
+		iconfont: 'icon-fangyizhen',
+		children: [
+			{
+				path: '/prevention/piglet',
+				name: '仔猪防疫计划'
+			}
+		]
 	},
 	{
 		key: '4',
 		path: '/drug',
-		name: '药品录入',
+		name: '药品管理',
 		icon: 'medicine-box'
 	}
 ]

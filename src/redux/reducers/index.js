@@ -10,12 +10,14 @@ import { routerReducer } from 'react-router-redux';
 
 import menuReducer from './menu.reducer';
 import archiveReducer from './archive.reducer';
+import monitoringReducer from './monitoring.reducer';
 /**
  * combineReducers 合并Reducers
  */
 const reducers = combineReducers({
 	menuReducer,
 	archiveReducer,
+	monitoringReducer,
 	routing: routerReducer
 });
 

@@ -1,8 +1,23 @@
+/**
+ * @author: Michael
+ * @date: 2017-07-31 17:29:35
+ * @last modified by: Michael
+ * @last modified time: 2017-07-31 17:29:35
+ * @gitHub: https://github.com/maxsmu
+*/
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'antd';
 
 export default class MonitoringTable extends Component {
+	static defaultProps = {
+		dataList: []
+	};
+	static propTypes = {
+		dataList: PropTypes.array
+	}
 	render() {
+		const {dataList} = this.props;
 		const columns = [
 			{
 				title: '耳号',
@@ -53,37 +68,9 @@ export default class MonitoringTable extends Component {
 			}
 		];
 
-		const data = [
-			{
-				id: '1',
-				earmark: 'John Brown',
-				variety: 32,
-				state: '12',
-				parity: 2,
-				matingDate: '2017-07-28',
-				recoverDate: '2017-07-28',
-				BScanDate: '2017-07-28',
-				dueDate: '2017-07-28',
-				deliveryDate: '2017-07-28',
-				remark: '这就是一个备注信息'
-			},
-			{
-				id: '2',
-				earmark: 'John Brown',
-				variety: 32,
-				state: '12',
-				parity: 12,
-				matingDate: '2017-07-28',
-				recoverDate: '2017-07-28',
-				BScanDate: '2017-07-28',
-				dueDate: '2017-07-28',
-				deliveryDate: '2017-07-28',
-				remark: '这就是一个备注信息'
-			}
-		];
 		const { ...others } = this.props;
 		return (
-			<Table bordered rowKey="id" columns={columns} dataSource={data} {...others} />
+			<Table bordered rowKey="id" columns={columns} dataSource={dataList} {...others} />
 		);
 	}
 }

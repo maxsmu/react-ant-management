@@ -6,22 +6,34 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
+import { connect } from 'react-redux';
 import browser from '@utils/browser.util';
-import { Echarts } from '@components/echarts';
+
 import { SearchFrom } from '@components/search-from';
-
 import MonitoringTable from './table/table';
-import option from './echarts-option.js';
+import MonitoringEchart from './echart/echart';
 import cssStyles from './monitoring.scss';
+import monitoringAction from '@actions/monitoring';
 
-@browser.init('生产监控')
+@browser.init('生产事务')
+@connect(state => {
+	const { monitoringReducer } = state;
+	return { ...monitoringReducer, list: monitoringReducer.list, monitoringData: monitoringReducer.monitoringData }
+})
 export default class Monitoring extends Component {
+	static defaultProps = {
+		monitoringData: []
+	}
+	componentDidMount() {
+		this.props.dispatch(monitoringAction.getMonitorings());
+		this.props.dispatch(monitoringAction.getSowsMonitorings(7));
+	}
 	onSearchSubmit = () => {
 		// error, value
 		// console.log(error, value);
 	}
 	render() {
+		const { list, monitoringData } = this.props;
 		const layout = {
 			labelCol: { span: 5 },
 			wrapperCol: { span: 19 }
@@ -49,16 +61,11 @@ export default class Monitoring extends Component {
 			{ name: '创建时间', value: 'creatDate', type: 'DatePicker', layout },
 			{ name: '分娩区间', value: 'RangeDate', type: 'RangePicker', layout }
 		];
-
 		return (
 			<section>
-				<Row className={cssStyles.wrapperEcharts}>
-					<Col span={24}>
-						<Echarts option={option} style={{ width: '95%', height: 300 }} />
-					</Col>
-				</Row>
+				<MonitoringEchart data={monitoringData} className={cssStyles.wrapperEcharts} />
 				<SearchFrom fields={fields} onSearch={this.onSearchSubmit} count={4} />
-				<MonitoringTable style={{ marginTop: 25 }} />
+				<MonitoringTable dataList={list} style={{ marginTop: 25 }} />
 			</section >
 		);
 	}

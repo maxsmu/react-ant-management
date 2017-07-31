@@ -5,8 +5,8 @@
  * @last modified time: 2017-07-28 17:05:24
  * @gitHub: https://github.com/maxsmu
 */
-export default {
-	'/monitoring': {
+module.exports = {
+	'/v1/monitoring': {
 		get: (req, res) => {
 			const list = [
 				{
@@ -38,6 +38,28 @@ export default {
 			];
 
 			return res.send(list);
+		}
+	},
+	// 获取监控数据
+	'/v1/breeding/state': {
+		get: (req, res) => {
+			res.send([
+				{
+					showName: '预产',
+					date: '2017-07-31',
+					data: [0, 2, 3, 4, 5, 36, 12]
+				},
+				{
+					showName: '分娩',
+					date: '2017-08-01',
+					data: [0, 2, 3, 14, 15, 6, 12]
+				},
+				{
+					showName: 'B超',
+					date: '2017-08-02',
+					data: [0, 2, 13, 4, 5, 16, 12]
+				}
+			]);
 		}
 	}
 }

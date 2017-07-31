@@ -64,7 +64,7 @@ export default class Echarts extends Component {
 		let nextTheme = nextProps.theme;
 		// 如果主题切换,需要重新创建实例,因为ECharts的主题设置api在init中
 		if (theme !== nextTheme) {
-			this.setState({ needInit: true })
+			this.setState({ needInit: true });
 		}
 	}
 	shouldComponentUpdate(nextProps, nextState) {
