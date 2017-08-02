@@ -13,16 +13,27 @@ import baseOption from './echart.config.js';
 
 export default class MonitoringEchart extends Component {
 	static propTypes = {
-		data: PropTypes.array.isRequired
+		data: PropTypes.object.isRequired,
+		isLoading: PropTypes.bool
 	}
 	render() {
-		const { data, ...others } = this.props;
+		const { data, isLoading, ...others } = this.props;
 		const option = genEchartsOption(data);
-		console.log(option);
 		return (
 			<Row {...others}>
 				<Col span={24}>
-					<Echarts option={option} style={{ width: '95%', height: 300 }} />
+					<Echarts
+						width={'95%'}
+						height={300}
+						title={baseOption.title}
+						tooltip={baseOption.tooltip}
+						legend={option.legend}
+						grid={baseOption.grid}
+						yAxis={baseOption.yAxis}
+						xAxis={option.xAxis}
+						series={option.series}
+						isLoading={isLoading}
+					/>
 				</Col>
 			</Row>
 		);
@@ -33,20 +44,21 @@ export default class MonitoringEchart extends Component {
  * 根据近7日监控数据生成echart配置
  * @param {Array} data 近7日监控数据
  */
-function genEchartsOption(data = []) {
+function genEchartsOption(data = {}) {
+	// 说明列表对象
+	const legend = {};
 	// 说明列表
-	const legend = [];
+	const legendData = [];
 
 	// x轴标记
-	const xAxisData = [];
+	const xAxis = {
+		type: 'category'
+	};
 
 	// 遍历数据生成series数据
-	baseOption.series = data.map(item => {
+	const series = data.listData && data.listData.map(item => {
 		// 添加说明名称
-		legend.push(item.showName);
-
-		// 添加X轴标记名称
-		xAxisData.push(item.date);
+		legendData.push(item.showName);
 
 		return {
 			name: item.showName,
@@ -63,7 +75,14 @@ function genEchartsOption(data = []) {
 		};
 	});
 
-	baseOption.xAxis.data = xAxisData;
-	baseOption.legend = legend;
-	return baseOption;
+	// 若说明列表长度大于0 则赋值
+	if (legendData.length > 0) {
+		legend.data = legendData;
+	}
+
+	// 若存在type 则赋值
+	if (data.type) {
+		xAxis.data = data.type;
+	}
+	return { legend, xAxis, series };
 }

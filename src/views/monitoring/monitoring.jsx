@@ -18,11 +18,16 @@ import monitoringAction from '@actions/monitoring';
 @browser.init('生产事务')
 @connect(state => {
 	const { monitoringReducer } = state;
-	return { ...monitoringReducer, list: monitoringReducer.list, monitoringData: monitoringReducer.monitoringData }
+	return {
+		...monitoringReducer,
+		list: monitoringReducer.list,
+		monitoringData: monitoringReducer.monitoringData,
+		isFetching: monitoringReducer.isFetching
+	}
 })
 export default class Monitoring extends Component {
 	static defaultProps = {
-		monitoringData: []
+		monitoringData: {}
 	}
 	componentDidMount() {
 		this.props.dispatch(monitoringAction.getMonitorings());
@@ -38,7 +43,6 @@ export default class Monitoring extends Component {
 			labelCol: { span: 5 },
 			wrapperCol: { span: 19 }
 		};
-
 		// search config
 		const fields = [
 			{
@@ -63,7 +67,10 @@ export default class Monitoring extends Component {
 		];
 		return (
 			<section>
-				<MonitoringEchart data={monitoringData} className={cssStyles.wrapperEcharts} />
+				<MonitoringEchart
+					data={monitoringData}
+					className={cssStyles.wrapperEcharts}
+				/>
 				<SearchFrom fields={fields} onSearch={this.onSearchSubmit} count={4} />
 				<MonitoringTable dataList={list} style={{ marginTop: 25 }} />
 			</section >

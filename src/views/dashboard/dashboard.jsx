@@ -10,22 +10,129 @@ import { Row, Col } from 'antd';
 import browser from '@utils/browser.util';
 // import { connect } from 'react-redux';
 // import { createSelector } from 'reselect';
-
 import { PanelItem, PanelWrapper } from '@components/panel';
-import { Echarts } from '@components/echarts';
 
 // import cssStyles from './dashboard.scss';
+import MonthMonitorEcharts from './month-monitor/month-monitor';
+import PigSurveyEcharts from './pig-survey/pig-survey';
 
-import option from './echarts-option1.js';
-import option2 from './echarts-option2.js';
-// import { push } from 'react-router-redux';
 @browser.init('Dashboard')
 export default class Dashboard extends React.Component {
-	echartCallback(echartInstance, option, notMerge, lazyUpdate, echarts) {
-		option.series = genPieSeries(option.series[0].data, echartInstance, echarts);
-		echartInstance.setOption(option, notMerge, lazyUpdate);
-	}
 	render() {
+		const data = [
+			[
+				'2017-02-01',
+				1
+			],
+			[
+				'2017-02-02',
+				2
+			],
+			[
+				'2017-02-03',
+				3
+			],
+			[
+				'2017-02-04',
+				4
+			],
+			[
+				'2017-02-05',
+				5
+			],
+			[
+				'2017-02-06',
+				6
+			],
+			[
+				'2017-02-07',
+				7
+			],
+			[
+				'2017-02-08',
+				8
+			],
+			[
+				'2017-02-09',
+				9
+			],
+			[
+				'2017-02-10',
+				10
+			],
+			[
+				'2017-02-11',
+				11
+			],
+			[
+				'2017-02-12',
+				12
+			],
+			[
+				'2017-02-13',
+				13
+			],
+			[
+				'2017-02-14',
+				14
+			],
+			[
+				'2017-02-15',
+				15
+			],
+			[
+				'2017-02-16',
+				16
+			],
+			[
+				'2017-02-17',
+				17
+			],
+			[
+				'2017-02-18',
+				18
+			],
+			[
+				'2017-02-19',
+				19
+			],
+			[
+				'2017-02-20',
+				20
+			],
+			[
+				'2017-02-21',
+				21
+			],
+			[
+				'2017-02-22',
+				22
+			],
+			[
+				'2017-02-23',
+				23
+			],
+			[
+				'2017-02-24',
+				24
+			],
+			[
+				'2017-02-25',
+				25
+			],
+			[
+				'2017-02-26',
+				26
+			],
+			[
+				'2017-02-27',
+				27
+			],
+			[
+				'2017-02-28',
+				28
+			]
+		];
 		return (
 			<section>
 				<PanelWrapper>
@@ -36,10 +143,10 @@ export default class Dashboard extends React.Component {
 				</PanelWrapper>
 				<Row>
 					<Col span={16}>
-						<Echarts onCallback={this.echartCallback} option={option} style={{ width: '100%', height: 450 }} />
+						<MonthMonitorEcharts data={data} />
 					</Col>
 					<Col span={8}>
-						<Echarts option={option2} style={{ width: '100%', height: 450, display: 'block' }} />
+						<PigSurveyEcharts />
 					</Col>
 				</Row>
 			</section>
@@ -50,33 +157,3 @@ export default class Dashboard extends React.Component {
 // todolist  今日任务列表 To-Do List
 // table 最近购买列表（产仔）
 
-/**
- * 获取pie数据
- * @param {array} scatterData 数据
- * @param {object} echartInstance echarts容器实例
- * @param {object} echarts echarts操作对象
- */
-function genPieSeries(scatterData, echartInstance, echarts) {
-	return echarts.util.map(scatterData, (item, index) => {
-		const center = echartInstance.convertToPixel('calendar', item);
-		// console.log(item, center);
-		return {
-			id: index + 'pie',
-			type: 'pie',
-			center: center,
-			label: {
-				normal: {
-					formatter: '{c}',
-					position: 'inside'
-				}
-			},
-			// 扇面半径
-			radius: 25,
-			data: [
-				{ name: '工作', value: index > 4 ? Math.round(Math.random() * 24) : 10 },
-				{ name: '娱乐', value: index > 4 ? Math.round(Math.random() * 24) : 10 },
-				{ name: '睡觉', value: index > 4 ? Math.round(Math.random() * 24) : 10 }
-			]
-		};
-	});
-}

@@ -6,14 +6,18 @@
  * @gitHub: https://github.com/maxsmu
 */
 import { createActions } from 'redux-actions';
-import { GET_MONITORINGS, GET_SOWS_MONITORINGS } from './action-types';
+import { GET_MONITORINGS, GET_SOWS_MONITORINGS, GET_MONITORINGS_START, GET_MONITORINGS_FAIL } from './action-types';
 import refetch from 'refetch';
 
 const monitoringAction = createActions({
 	// 获取生产母猪列表
 	[GET_SOWS_MONITORINGS]: fetchMonitoringList(),
+	// 获取请求开始
+	[GET_MONITORINGS_START]: () => Promise.resolve(true),
 	// 获取近几日母猪监控列表
-	[GET_MONITORINGS]: getSowsMonitoring()
+	[GET_MONITORINGS]: getSowsMonitoring(),
+	// 获取请求成功
+	[GET_MONITORINGS_FAIL]: () => Promise.resolve(false)
 });
 
 const { getMonitorings, getSowsMonitorings } = monitoringAction;
@@ -36,6 +40,7 @@ function fetchMonitoringList(query = {}) {
  */
 function getSowsMonitoring(days = 7) {
 	return () => {
-		return refetch.get('/v1/breeding/state', { days });
+		return refetch
+			.get('/v1/breeding/state', { days });
 	}
 }

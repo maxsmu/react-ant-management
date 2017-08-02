@@ -8,7 +8,6 @@
 import React, { Component } from 'react';
 import browser from '@utils/browser.util';
 
-
 @browser.init('基础数据配置')
 export default class BasicSetting extends Component {
 	render() {
