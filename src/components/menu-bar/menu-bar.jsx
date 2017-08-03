@@ -26,19 +26,17 @@ export default class MenuBar extends Component {
 		selectedKeys: []
 	}
 	componentDidMount() {
-		const { history } = this.props
-		// console.log(history.location.pathname);
+		const { history } = this.props;
+
 		this.setState({
-			selectedKeys: [history.location.pathname]
-			// ,
-			// openKeys: [getSubMenuKey(history.location.pathname)]
+			selectedKeys: [history.location.pathname],
+			openKeys: getSubMenuKey(history.location.pathname)
 		})
 
 		this.listenRoute = history.listen(location => {
 			this.setState({
-				selectedKeys: [location.pathname]
-				// ,
-				// openKeys: [getSubMenuKey(location.pathname)]
+				selectedKeys: [location.pathname],
+				openKeys: getSubMenuKey(location.pathname)
 			})
 		})
 	}
@@ -57,6 +55,8 @@ export default class MenuBar extends Component {
 		return (
 			<Menu
 				selectedKeys={this.state.selectedKeys}
+				openKeys={this.state.openKeys}
+				onOpenChange={openKeys => this.setState({ openKeys })}
 				mode="inline"
 				theme="dark"
 				style={{ height: '100%', overflowY: 'auto' }}
@@ -121,7 +121,12 @@ function genSubMenuNode(subMenusList = []) {
 	});
 }
 
-// // 获取当前页面所属的上级菜单
-// function getSubMenuKey(pathname) {
-// 	return pathname.indexOf('business') > -1 ? 'business' : ''
-// }
+// 获取当前页面所属的上级菜单
+function getSubMenuKey(pathname) {
+	const menuKeys = pathname.split('/');
+	// 移除第一个 '' 元素
+	menuKeys.splice(0, 1);
+	// 移除最后一个元素，即当前
+	menuKeys.pop();
+	return menuKeys.map(name => `/${name}`);
+}

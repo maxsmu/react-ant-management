@@ -47,7 +47,6 @@ export default class MonthMonitorEcharts extends Component {
 function genPieSeries(scatterData = [], echartInstance) {
 	return scatterData.map((item, index) => {
 		const center = echartInstance.convertToPixel('calendar', item);
-		console.log(item[0], center);
 		return {
 			id: index + 'pie',
 			type: 'pie',
