@@ -23,6 +23,7 @@
     "element-resize-event": "^2.0.9",
     "history": "^4.6.3",
     "memory-fs": "^0.4.1",
+    "moment": "^2.18.1",
     "normalize.css": "^7.0.0",
     "react": "^15.6.1",
     "react-addons-shallow-compare": "^15.6.0",
@@ -35,6 +36,7 @@
     "redux-actions": "^2.2.1",
     "redux-logger": "^3.0.6",
     "redux-promise": "^0.5.3",
+    "redux-saga": "^0.15.6",
     "refetch": "^0.2.4",
     "reselect": "^3.0.1"
   },

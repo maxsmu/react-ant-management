@@ -6,11 +6,11 @@
  * @gitHub: https://github.com/maxsmu
 */
 // 获取母猪生成列表
-export const GET_SOWS_MONITORINGS = 'GET_SOWS_MONITORINGS';
+export const get_sows_monitor = 'GET_SOWS_MONITOR';
 
 // 获取近7天监控数据
-export const GET_MONITORINGS = 'GET_MONITORINGS';
+export const get_monitor = 'GET_MONITOR';
 // 开始fetching
-export const GET_MONITORINGS_START = 'GET_MONITORINGS_START';
+export const get_monitor_start = 'GET_MONITOR_START';
 // 开始fetching fail
-export const GET_MONITORINGS_FAIL = 'GET_MONITORINGS_FAIL';
+export const get_monitor_error = 'GET_MONITOR_ERROR';

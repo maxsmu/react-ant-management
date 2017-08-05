@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import cssStyle from './main-layout.scss';
 import { HeaderNav } from '@components/header-nav';
 import { MenuBar } from '@components/menu-bar';
-// import { Container } from '@components/container';
 import { Router } from '@view/router';
 import menuAction from '@actions/menu';
 const { Content, Header, Sider } = Layout;
@@ -21,8 +20,9 @@ const { Content, Header, Sider } = Layout;
 @connect(
 	// mapStateToProps
 	state => {
+		const { menus } = state;
 		return {
-			menus: state.menuReducer.menus
+			menus: menus.data
 		};
 	},
 	// mapDispatchToProps

@@ -1,5 +1,14 @@
 {
 	"compilerOptions": {
+		"module": "es6",
+		"moduleResolution": "node",
+		"target": "es6",
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"removeComments": false,
 		"experimentalDecorators": true
-	}
+	},
+	"files": [
+		"./src/**"
+	]
 }

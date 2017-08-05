@@ -3,6 +3,7 @@ export default {
 		text: '南丁格尔玫瑰图',
 		subtext: '纯属虚构'
 	},
+	color: ['#ffcd58', '#2abdbd', '#fe8150', '#52a0e7'],
 	tooltip: {
 		trigger: 'item',
 		formatter: "{a} <br/>{b} : {c} ({d}%)"

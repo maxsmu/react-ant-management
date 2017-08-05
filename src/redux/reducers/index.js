@@ -8,16 +8,16 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import menuReducer from './menu.reducer';
-import archiveReducer from './archive.reducer';
-import monitoringReducer from './monitoring.reducer';
+import menus from './menus.reducer';
+import archives from './archives.reducer';
+import monitor from './monitor.reducer';
 /**
  * combineReducers 合并Reducers
  */
 const reducers = combineReducers({
-	menuReducer,
-	archiveReducer,
-	monitoringReducer,
+	menus,
+	archives,
+	monitor,
 	routing: routerReducer
 });
 

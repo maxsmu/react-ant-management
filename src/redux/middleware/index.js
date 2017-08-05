@@ -6,14 +6,14 @@
  * @gitHub: https://github.com/maxsmu
 */
 import { createBrowserHistory } from 'history';
-import { routerMiddleware } from 'react-router-redux'
-import promiseMiddleware from 'redux-promise'
-import { createLogger } from 'redux-logger'
-import thunkMiddleware from 'redux-thunk'
+import { routerMiddleware } from 'react-router-redux';
+import { createLogger } from 'redux-logger';
+import createThunkMiddleware from 'redux-thunk';
+import promiseMiddleware from 'redux-promise';
 
 const browserHistory = createBrowserHistory()
 
-const middleware = [routerMiddleware(browserHistory), thunkMiddleware, promiseMiddleware];
+const middleware = [routerMiddleware(browserHistory), createThunkMiddleware, promiseMiddleware];
 
 // 如果是开发环境添加 logger插件
 process.env.NODE_ENV === 'development' && middleware.push(createLogger());

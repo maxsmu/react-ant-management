@@ -66,22 +66,22 @@ export default class SearchFrom extends Component {
 		// 类型tags
 		const tags = {
 			// 下拉选择框
-			Select: (
-				<Select
-					placeholder={field.placeholder}
-				>
-					{
-						field.options && field.options.map((item, index) => {
-							return <Select.Option key={index} value={item.value}>{item.name}</Select.Option>
-						})
-					}
-				</Select>),
+			Select:
+			<Select
+				placeholder={field.placeholder}
+			>
+				{
+					field.options && field.options.map((item, index) => {
+						return <Select.Option key={index} value={item.value}>{item.name}</Select.Option>
+					})
+				}
+			</Select>,
 			// input 输入框
 			Input: (
 				<Input placeholder={field.placeholder} />
 			),
 			// 数字输入框
-			InputNumber: (<InputNumber />),
+			InputNumber: <InputNumber />,
 			// 日期选择器
 			DatePicker: <DatePicker />,
 			// 区间日期选择器

@@ -12,10 +12,10 @@ import archiveAction from '@actions/archive';
 
 @connect(
 	state => {
-		const { archiveReducer } = state;
+		const { archives } = state;
 		return {
-			...archiveReducer,
-			isBatchImport: archiveReducer.isBatchImport
+			...archives,
+			isBatchImport: archives.isBatchImport
 		}
 	}
 )

@@ -26,6 +26,7 @@ module.exports = {
 			'react-router',
 			'redux-logger',
 			'redux-promise',
+			'redux-thunk',
 			'redux-actions',
 			'react-router-redux',
 			'react-router-dom'
@@ -40,12 +41,14 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.json', '.jsx'],
 		alias: {
-			'@layout': path.resolve(sourcePath, './layouts'),
+			'@layout': path.resolve(sourcePath, './layouts/'),
 			'@view': path.resolve(sourcePath, './views/'),
 			'@components': path.resolve(sourcePath, './components/'),
 			'@actions': path.resolve(sourcePath, './redux/actions/'),
+			'@services': path.resolve(sourcePath, './services/'),
 			'@assets': path.resolve(sourcePath, './assets/'),
-			'@utils':path.resolve(sourcePath,'./utils')
+			'@utils': path.resolve(sourcePath, './utils/'),
+			'@constant': path.resolve(sourcePath, './constant/'),
 		}
 	},
 	module: {

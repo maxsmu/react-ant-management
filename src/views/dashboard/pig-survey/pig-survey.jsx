@@ -22,6 +22,7 @@ export default class PigSurveyEcharts extends Component {
 				width={'100%'}
 				height={450}
 				title={echartConfig.title}
+				color={echartConfig.color}
 				tooltip={echartConfig.tooltip}
 				legend={echartConfig.legend}
 				series={echartConfig.series}

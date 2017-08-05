@@ -12,7 +12,7 @@ import { Drug } from '@view/drug';
 import { Archives } from '@view/archives';
 import { Dashboard } from '@view/dashboard';
 import { Prevention } from '@view/prevention';
-import { Monitoring } from '@view/monitoring';
+import { Monitor } from '@view/monitor';
 import { BasicSetting } from '@view/basic';
 export const Router = (
 	<Switch>
@@ -20,7 +20,7 @@ export const Router = (
 		<Route path="/archives" component={Archives} />
 		<Route path="/prevention" component={Prevention} />
 		<Route path="/drug" component={Drug} />
-		<Route path="/monitoring" component={Monitoring} />
+		<Route path="/monitor" component={Monitor} />
 		<Route path="/basic" component={BasicSetting} />
 	</Switch>
 )

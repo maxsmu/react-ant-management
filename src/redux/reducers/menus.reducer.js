@@ -11,7 +11,7 @@ import { GET_MENU_LIST } from '@actions/menu';
 
 const reducer = handleActions({
 	[GET_MENU_LIST](state, action) {
-		return { ...state, menus: action.payload };
+		return { ...state, data: action.payload };
 	}
 }, {});
 

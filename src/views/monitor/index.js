@@ -5,4 +5,4 @@
  * @last modified time: 2017-07-27 16:54:07
  * @gitHub: https://github.com/maxsmu
 */
-export { default as Monitoring } from './monitoring';
+export { default as Monitor } from './monitor';

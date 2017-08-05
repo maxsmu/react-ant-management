@@ -7,9 +7,9 @@
 */
 import React from 'react';
 import { Row, Col } from 'antd';
-import browser from '@utils/browser.util';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import { createSelector } from 'reselect';
+import browser from '@utils/browser.util';
 import { PanelItem, PanelWrapper } from '@components/panel';
 
 // import cssStyles from './dashboard.scss';
@@ -17,6 +17,10 @@ import MonthMonitorEcharts from './month-monitor/month-monitor';
 import PigSurveyEcharts from './pig-survey/pig-survey';
 
 @browser.init('Dashboard')
+@connect(state => {
+	console.log(state);
+	return {};
+})
 export default class Dashboard extends React.Component {
 	render() {
 		const data = [

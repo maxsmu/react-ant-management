@@ -15,6 +15,7 @@ export default {
 			type: 'shadow'
 		}
 	},
+	color: ['#ffcd58', '#2abdbd', '#fe8150', '#52a0e7'],
 	legend: {
 		data: []
 	},

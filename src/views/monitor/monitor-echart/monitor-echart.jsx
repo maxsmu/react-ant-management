@@ -11,7 +11,7 @@ import { Echarts } from '@components/echarts';
 import { Row, Col } from 'antd';
 import baseOption from './echart.config.js';
 
-export default class MonitoringEchart extends Component {
+export default class MonitorEchart extends Component {
 	static propTypes = {
 		data: PropTypes.object.isRequired,
 		isLoading: PropTypes.bool
@@ -32,7 +32,9 @@ export default class MonitoringEchart extends Component {
 						yAxis={baseOption.yAxis}
 						xAxis={option.xAxis}
 						series={option.series}
-						isLoading={isLoading}
+						isLoading={!isLoading}
+						color={baseOption.color
+						}
 					/>
 				</Col>
 			</Row>
