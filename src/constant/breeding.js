@@ -10,7 +10,8 @@ export const BType = {
  * 生产表状态
  */
 export const BState = {
-	0: '进行中',
+	0: '反情期',
 	1: '反情',
-	2: '完成'
+	2: '正常',
+	3: '完结'
 }

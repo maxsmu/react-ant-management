@@ -23,6 +23,14 @@ module.exports = {
 			});
 		}
 	},
+	'/v1/monitor/:id': {
+		put: (req, res) => {
+			console.log(req.params, req.body);
+			setTimeout(() => {
+				res.sendStatus(200);
+			}, 10000);
+		}
+	},
 	// 获取监控数据
 	'/v1/monitor/state': {
 		get: (req, res) => {
@@ -80,6 +88,7 @@ function random(limit) {
 function genInitData(index, month) {
 	const BbreedingDate = new Date(`2017-${month}-${random(29)}`);
 	return {
+		id: '030303' + index,
 		Pno: '699-001' + index,
 		Btype: '' + Math.floor(Math.random() * 2), // 0 -自然 1 -人工
 		BbreedingDate,
@@ -108,6 +117,7 @@ function genInitData(index, month) {
 function genRecoverData(index, month) {
 	const BbreedingDate = new Date(`2017-${month}-${random(29)}`);
 	return {
+		id: '030303' + index,
 		Pno: '699-001' + index,
 		Btype: '' + Math.floor(Math.random() * 2), // 0 -自然 1 -人工
 		BbreedingDate,
@@ -136,6 +146,7 @@ function genRecoverData(index, month) {
 function genSuccessDate(index, month) {
 	const BbreedingDate = new Date(`2017-${month}-${random(29)}`);
 	return {
+		id: '030303' + index,
 		Pno: '699-001' + index,
 		Btype: '' + Math.floor(Math.random() * 2), // 0 -自然 1 -人工
 		BbreedingDate,
@@ -144,7 +155,7 @@ function genSuccessDate(index, month) {
 		BdueDate: addDays(BbreedingDate, 114),
 		BdeliveryDate: addDays(BbreedingDate, 115),
 		Bparity: random(30),
-		Bstate: 2,
+		Bstate: 3,
 		Bnumber: 12,
 		Bpiglets: {
 			Psurvival: 1,
@@ -164,6 +175,7 @@ function genSuccessDate(index, month) {
 function genNomalDate(index, month) {
 	const BbreedingDate = new Date(`2017-${month}-${random(29)}`);
 	return {
+		id: '030303' + index,
 		Pno: '699-001' + index,
 		Btype: '' + Math.floor(Math.random() * 2), // 0 -自然 1 -人工
 		BbreedingDate,
@@ -172,7 +184,7 @@ function genNomalDate(index, month) {
 		BdueDate: addDays(BbreedingDate, 114),
 		BdeliveryDate: '',
 		Bparity: random(30),
-		Bstate: 0,
+		Bstate: 2,
 		Bnumber: '',
 		Bpiglets: {
 			Psurvival: '',

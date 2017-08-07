@@ -10,7 +10,9 @@ export const get_sows_monitor = 'GET_SOWS_MONITOR';
 
 // 获取近7天监控数据
 export const get_monitor = 'GET_MONITOR';
-// 开始fetching
-export const get_monitor_start = 'GET_MONITOR_START';
-// 开始fetching fail
-export const get_monitor_error = 'GET_MONITOR_ERROR';
+
+// 更新监控数据
+export const update_monitor_data = 'UPDATE_MONITOR_DATA';
+
+// 编辑模式状态
+export const editor_state = 'EDITOR_STATE';

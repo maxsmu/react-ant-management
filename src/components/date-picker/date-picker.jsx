@@ -12,23 +12,23 @@ export default class UDatePicker extends Component {
 		loading: PropTypes.bool
 	};
 	state = {
-		isEdit: false,
-		disabled: true
+		isEdit: false
 	};
 	onDoubleClick = () => {
-		this.setState({ disabled: !this.state.disabled });
+		this.setState({ isEdit: true });
 	}
 	/**
 	 * 选中后关闭编辑状态
 	 */
 	onOpenChange = isClosed => {
-		if (isClosed) {
-			this.setState({ disabled: true });
+		if (!isClosed) {
+			this.setState({ isEdit: false });
 		}
 	}
 	/**
-	 *
-	 * @param {Event} e 事件对象
+	 * 日期修改后触发
+	 * @param {Moment} date moment时间对象
+	 * @param {String} dateString 字符时间
 	 */
 	onChange = (date, dateString) => {
 		this.props.onDateChange(date, dateString)
@@ -36,17 +36,18 @@ export default class UDatePicker extends Component {
 	render() {
 		const { defaultValue, loading } = this.props;
 		const loadingHtml = (<div className={cssStyle.loadingBox}>
-			<Icon type="loading" className={cssStyle.loadingIcon} />加载中...
+			<Icon type="loading" className={cssStyle.loadingIcon} />更新中...
 		</div>);
-		const dateHtml = (
-			<DatePicker
-				className={cssStyle.datePickerBox}
-				allowClear={false}
-				defaultValue={defaultValue}
-				disabled={this.state.disabled}
-				onOpenChange={this.onOpenChange}
-				onChange={this.onChange}
-			/>);
+		const dateHtml =
+			this.state.isEdit ? (
+				<DatePicker
+					className={cssStyle.datePickerBox}
+					allowClear={false}
+					defaultValue={defaultValue}
+					onOpenChange={this.onOpenChange}
+					onChange={this.onChange}
+				/>
+			) : (<span className={cssStyle.defaultBox}>{defaultValue.format('YYYY-MM-DD')}</span>);
 		return (
 			<span onDoubleClick={this.onDoubleClick}>
 				{loading ? loadingHtml : dateHtml}

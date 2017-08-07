@@ -6,41 +6,91 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Table, Icon } from 'antd';
 import moment from 'moment';
+import { Table, Icon, message, Button } from 'antd';
 import { BType, BState } from '@constant/breeding';
 import cssStyles from './details-table.scss';
 import { UDatePicker } from '@components/date-picker';
+import { updateMonitorDataAction, editorStateMintorAction } from '@actions/monitor';
+import EditorMonitor from '../edit-monitor/edit-monitor';
 
-
+// 时间格式
 const dateFormat = 'YYYY-MM-DD';
+// 是否有数据正在修改
+let isUpdateing = false;
+@connect(state => {
+	const { monitor } = state;
+	return {
+		...monitor,
+		updateMonitor: monitor.updateMonitor,
+		editorState: monitor.editorState
+	}
+})
 export default class MonitorTable extends Component {
 	static defaultProps = {
 		dataList: [],
+		isLoading: false,
 		pagination: {},
-		isLoading: false
+		updateMonitor: { isFetching: false },
+		editorState: { visible: false }
 	};
 	static propTypes = {
 		dataList: PropTypes.array,
 		pagination: PropTypes.object
 	}
-	onDateChange = date => {
-		console.log('--->', date);
+	/**
+	 * 时间修改后事件处理
+	 * @param {String} prop 属性名称
+	 * @param {Object} record 实例对象
+	 */
+	onDateChange = (prop, record) => {
+		return date => {
+			if (isUpdateing) {
+				message.warn('稍有数据正在修改....');
+				return null;
+			}
+			isUpdateing = true;
+			this.props.dispatch(updateMonitorDataAction(record.id, { prop, value: date.format(dateFormat) }));
+		}
 	}
-	genDateRender = (text, isLoading) => {
-		const value = text ? moment(text, dateFormat) : '';
+	/**
+	 *
+	 * @param {Object} record 监控实体
+	 */
+	onEditorHandle = record => {
+		return () => {
+			this.props.dispatch(editorStateMintorAction(true, record));
+		}
+	}
+	/**
+	 * 生成时间编辑框
+	 * @param {Date} text table数据
+	 * @param {Object} record 实例对象
+	 * @param {String} prop 当前属性名
+	 */
+	genDateRender = (text, record, prop) => {
+		const { updateMonitor } = this.props;
+		let isFetching = false;
+		let value = typeof text === 'string' ? moment(text, dateFormat) : text;
+		if (updateMonitor.id === record.id && updateMonitor.updateData.prop === prop) {
+			isFetching = updateMonitor.isFetching;
+			// 若数据修改成功，则将修改状态重置为默认值
+			!isFetching && (isUpdateing = false);
+			value = isFetching ? value : moment(updateMonitor.updateData.value, dateFormat);
+		}
 		return text ? (
 			<UDatePicker
 				defaultValue={value}
-				onDateChange={this.onDateChange}
-				loading={isLoading}
+				onDateChange={this.onDateChange(prop, record)}
+				loading={isFetching}
 				disabled
 			/>
 		) : '';
 	}
 	render() {
-		const { dataList, isLoading, pagination, ...others } = this.props;
+		const { dataList, pagination, isLoading, editorState, ...others } = this.props;
 		const columns = [
 			{
 				title: '耳号',
@@ -61,33 +111,33 @@ export default class MonitorTable extends Component {
 			{
 				title: (<span>配种日期<Icon className={cssStyles.icon} type="calendar" /></span>),
 				dataIndex: 'BbreedingDate',
-				width: 150,
+				width: 115,
 				render: text => {
-					return this.genDateRender(text, isLoading);
+					return text ? <span className={cssStyles.dateBox}>{moment(text).format(dateFormat)}</span> : ''
 				}
 			},
 			{
 				title: (<span>B超日期<Icon className={cssStyles.icon} type="calendar" /></span>),
 				dataIndex: 'BBscanDate',
-				width: 150,
-				render: text => {
-					return this.genDateRender(text, isLoading);
+				width: 115,
+				render: (text, record) => {
+					return this.genDateRender(text, record, 'BBscanDate');
 				}
 			},
 			{
 				title: (<span>预产期<Icon className={cssStyles.icon} type="calendar" /></span>),
 				dataIndex: 'BdueDate',
-				width: 150,
-				render: text => {
-					return this.genDateRender(text, isLoading);
+				width: 115,
+				render: (text, record) => {
+					return this.genDateRender(text, record, 'BdueDate');
 				}
 			},
 			{
 				title: (<span>分娩日期<Icon className={cssStyles.icon} type="calendar" /></span>),
 				dataIndex: 'BdeliveryDate',
-				width: 150,
-				render: text => {
-					return this.genDateRender(text, isLoading);
+				width: 115,
+				render: (text, record) => {
+					return this.genDateRender(text, record, 'BdeliveryDate');
 				}
 			},
 			{
@@ -129,35 +179,52 @@ export default class MonitorTable extends Component {
 					}
 				]
 			},
-			{
-				title: '反情日期',
-				dataIndex: 'BrecoverDate',
-				width: 100,
-				render: text => {
-					return text ? moment(text).format('YYYY-MM-DD') : ''
-				}
-			},
+			// {
+			// 	title: '反情日期',
+			// 	dataIndex: 'BrecoverDate',
+			// 	width: 80,
+			// 	render: text => {
+			// 		return text ? moment(text).format('YYYY-MM-DD') : ''
+			// 	}
+			// },
 			{
 				title: '状态',
 				dataIndex: 'Bstate',
-				render: text => BState[text]
+				width: 62,
+				render: text => {
+					if (text === 0) {
+						return <Button size="small">反情</Button>;
+					}
+					return BState[text];
+				}
 			},
 			{
 				title: '操作',
-				render: () => {
-					return <a href="#">Delete</a>
+				render: (text, record) => {
+					return record.Bstate === 2 ? (
+						<Button
+							type="primary"
+							size="small"
+							shape="circle"
+							icon="edit"
+							onClick={this.onEditorHandle(record)}
+						/>
+					) : null
 				}
 			}
 		];
 		return (
-			<Table bordered
-				rowKey="Pno"
-				loading={isLoading}
-				columns={columns}
-				dataSource={dataList}
-				pagination={pagination}
-				{...others}
-			/>
+			<div>
+				<Table bordered
+					rowKey="Pno"
+					loading={isLoading}
+					columns={columns}
+					dataSource={dataList}
+					pagination={pagination}
+					{...others}
+				/>
+				{editorState.visible ? <EditorMonitor visible={editorState.visible} /> : null}
+			</div>
 		);
 	}
 }

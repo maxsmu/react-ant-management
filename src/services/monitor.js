@@ -22,3 +22,13 @@ export function fetchMonitor(query = {}) {
 export function fetchMonitorState(days = 7) {
 	return refetch.get('/v1/monitor/state', { days });
 }
+
+/**
+ * 更新监控数据
+ * @param {String} id id
+ * @param {Object} update 更新内容
+ */
+export function updateMonitor(id, update) {
+	console.log(id, update);
+	return refetch.put(`/v1/monitor/${id}`, update);
+}

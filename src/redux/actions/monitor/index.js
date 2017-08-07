@@ -6,10 +6,11 @@
  * @gitHub: https://github.com/maxsmu
 */
 import { createActions } from 'redux-actions';
-import { get_monitor, get_sows_monitor } from './action-types';
-import { fetchMonitorState, fetchMonitor } from '@services/monitor';
+import { get_monitor, get_sows_monitor, update_monitor_data, editor_state } from './action-types';
+import { fetchMonitorState, fetchMonitor, updateMonitor } from '@services/monitor';
 
-const { getMonitor, getSowsMonitor } = createActions({}, get_monitor, get_sows_monitor);
+const { getMonitor, getSowsMonitor, updateMonitorData, editorState } = createActions({},
+	get_monitor, get_sows_monitor, update_monitor_data, editor_state);
 
 /**
  * 获取最近几天监控状态
@@ -50,4 +51,43 @@ export function getMonitorList(query) {
 				}))
 			});
 	}
+}
+
+/**
+ * 更新监控数据
+ * @param {String} id id
+ * @param {String} prop 属性名称
+ * @param {Object} updateData 字段数据
+ */
+export function updateMonitorDataAction(id, updateData) {
+	return dispatch => {
+		dispatch(updateMonitorData({
+			id,
+			updateData,
+			isFetching: true
+		}));
+		updateMonitor(id, updateData)
+			.then(() => {
+				dispatch(updateMonitorData({
+					id,
+					updateData,
+					isFetching: false,
+					ok: true
+				}));
+			});
+	};
+}
+
+/**
+ *  编辑状态
+ * @param {Bool} isOpen 开启、关闭
+ * @param {Object} item 待编辑对象
+ */
+export function editorStateMintorAction(isOpen = false, item) {
+	return dispatch => {
+		dispatch(editorState({
+			visible: isOpen,
+			item
+		}))
+	};
 }

@@ -87,7 +87,7 @@ if (app.get('env') === 'development') {
 	});
 }
 
-app.set('port', process.env.PORT || 8888);
+app.set('port', process.env.PORT || 8080);
 
 const server = app.listen(app.get('port'), () => {
 	console.log('前端服务器已启动.');
