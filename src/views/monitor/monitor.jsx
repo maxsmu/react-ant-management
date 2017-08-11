@@ -18,22 +18,22 @@ import { getMonitorState, getMonitorList } from '@actions/monitor';
 @browser.init('生产事务')
 @connect(state => {
 	const { monitor } = state;
-	const { monitorState, isFetching, monitorList } = monitor;
+	const { monitorState, monitorList } = monitor;
 	return {
 		...monitor,
 		monitorList,
-		monitorState,
-		isFetching: isFetching
+		monitorState
 	}
 })
 export default class Monitor extends Component {
 	static defaultProps = {
-		monitorState: {},
-		monitorList: { data: [], pagination: { pageSize: 20, current: 1 } }
+		monitorState: { isFetching: false },
+		monitorList: { data: [], pagination: { pageSize: 20, current: 1 }, isFetching: false }
 	};
 	componentDidMount() {
 		// 获取监控列表
 		this.fetchMonitorList({ pageSize: 20, current: 1 });
+
 		// 获取最近七天监控数据
 		this.props.dispatch(getMonitorState(7));
 	}
@@ -55,9 +55,8 @@ export default class Monitor extends Component {
 		this.props.dispatch(getMonitorList(query));
 	}
 	render() {
-		const { monitorList, monitorState, isFetching } = this.props;
+		const { monitorList, monitorState } = this.props;
 		const { pagination, data } = monitorList;
-
 		// field layout config
 		const layout = {
 			labelCol: { span: 5 },
@@ -95,15 +94,22 @@ export default class Monitor extends Component {
 			onShowSizeChange: this.onShowSizeChange,
 			onChange: this.onChange
 		};
+
 		return (
 			<section>
 				<MonitorEchart
 					data={monitorState}
-					isLoading={isFetching}
 					className={cssStyles.wrapperEcharts}
 				/>
+
 				<SearchFrom fields={fields} onSearch={this.onSearchSubmit} count={3} />
-				<MonitorTable pagination={tablePagination} dataList={data} isLoading={isFetching} style={{ marginTop: 25 }} />
+
+				<MonitorTable
+					pagination={tablePagination}
+					dataList={data}
+					isLoading={monitorList.isFetching}
+					style={{ marginTop: 25 }}
+				/>
 			</section >
 		);
 	}

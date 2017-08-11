@@ -18,15 +18,14 @@ import EditorMonitor from '../edit-monitor/edit-monitor';
 
 // 时间格式
 const dateFormat = 'YYYY-MM-DD';
-// 是否有数据正在修改
-let isUpdateing = false;
+
 @connect(state => {
 	const { monitor } = state;
 	return {
 		...monitor,
 		updateMonitor: monitor.updateMonitor,
 		editorState: monitor.editorState
-	}
+	};
 })
 export default class MonitorTable extends Component {
 	static defaultProps = {
@@ -36,10 +35,12 @@ export default class MonitorTable extends Component {
 		updateMonitor: { isFetching: false },
 		editorState: { visible: false }
 	};
+
 	static propTypes = {
 		dataList: PropTypes.array,
 		pagination: PropTypes.object
 	}
+
 	/**
 	 * 时间修改后事件处理
 	 * @param {String} prop 属性名称
@@ -47,16 +48,16 @@ export default class MonitorTable extends Component {
 	 */
 	onDateChange = (prop, record) => {
 		return date => {
-			if (isUpdateing) {
+			if (this.props.updateMonitor.isFetching) {
 				message.warn('稍有数据正在修改....');
 				return null;
 			}
-			isUpdateing = true;
 			this.props.dispatch(updateMonitorDataAction(record.id, { prop, value: date.format(dateFormat) }));
 		}
 	}
+
 	/**
-	 *
+	 * 编辑监控信息
 	 * @param {Object} record 监控实体
 	 */
 	onEditorHandle = record => {
@@ -64,6 +65,7 @@ export default class MonitorTable extends Component {
 			this.props.dispatch(editorStateMintorAction(true, record));
 		}
 	}
+
 	/**
 	 * 生成时间编辑框
 	 * @param {Date} text table数据
@@ -74,10 +76,12 @@ export default class MonitorTable extends Component {
 		const { updateMonitor } = this.props;
 		let isFetching = false;
 		let value = typeof text === 'string' ? moment(text, dateFormat) : text;
+
+		// 若修改是是当前内容
 		if (updateMonitor.id === record.id && updateMonitor.updateData.prop === prop) {
 			isFetching = updateMonitor.isFetching;
-			// 若数据修改成功，则将修改状态重置为默认值
-			!isFetching && (isUpdateing = false);
+
+			// 若数据修改成功
 			value = isFetching ? value : moment(updateMonitor.updateData.value, dateFormat);
 		}
 		return text ? (
@@ -89,8 +93,25 @@ export default class MonitorTable extends Component {
 			/>
 		) : '';
 	}
+
+	/**
+	 * 反情标记
+	 * @param {Object} record 实体
+	 */
+	onRecover = id => {
+		return () => {
+			if (this.props.updateMonitor.isFetching) {
+				message.warn('稍有数据正在修改....');
+				return null;
+			}
+			this.props.dispatch(updateMonitorDataAction(id, { prop: 'Bstate', value: 1 }));
+		};
+	}
+
 	render() {
 		const { dataList, pagination, isLoading, editorState, ...others } = this.props;
+
+		// table config
 		const columns = [
 			{
 				title: '耳号',
@@ -179,21 +200,13 @@ export default class MonitorTable extends Component {
 					}
 				]
 			},
-			// {
-			// 	title: '反情日期',
-			// 	dataIndex: 'BrecoverDate',
-			// 	width: 80,
-			// 	render: text => {
-			// 		return text ? moment(text).format('YYYY-MM-DD') : ''
-			// 	}
-			// },
 			{
 				title: '状态',
 				dataIndex: 'Bstate',
 				width: 62,
-				render: text => {
+				render: (text, record) => {
 					if (text === 0) {
-						return <Button size="small">反情</Button>;
+						return <Button onClick={this.onRecover(record.id)} size="small">反情</Button>;
 					}
 					return BState[text];
 				}
@@ -201,18 +214,31 @@ export default class MonitorTable extends Component {
 			{
 				title: '操作',
 				render: (text, record) => {
-					return record.Bstate === 2 ? (
-						<Button
-							type="primary"
-							size="small"
-							shape="circle"
-							icon="edit"
-							onClick={this.onEditorHandle(record)}
-						/>
-					) : null
+					if (record.Bstate === 2) {
+						return (
+							<Button
+								type="primary"
+								size="small"
+								shape="circle"
+								icon="edit"
+								onClick={this.onEditorHandle(record)}
+							/>
+						);
+					} else {
+						return (
+							<Button
+								type="primary"
+								size="small"
+								disabled
+								shape="circle"
+								icon="edit"
+							/>
+						);
+					}
 				}
 			}
 		];
+
 		return (
 			<div>
 				<Table bordered

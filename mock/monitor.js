@@ -5,16 +5,17 @@
  * @last modified time: 2017-07-28 17:05:24
  * @gitHub: https://github.com/maxsmu
 */
+const mointorList = [];
 module.exports = {
 	'/v1/monitor': {
 		get: (req, res) => {
+			mointorList.splice(0, mointorList.length);
 			const { pageSize = 20, current = 1 } = req.query;
-			const list = [];
 			for (let i = 0; i < pageSize; i++) {
-				list.push(genMonitorData(i))
+				mointorList.push(genMonitorData(i))
 			}
 			return res.send({
-				data: list,
+				data: mointorList,
 				pagination: {
 					current,
 					pageSize,
@@ -25,15 +26,20 @@ module.exports = {
 	},
 	'/v1/monitor/:id': {
 		put: (req, res) => {
-			console.log(req.params, req.body);
-			setTimeout(() => {
-				res.sendStatus(200);
-			}, 10000);
+			const updateObj = req.body;
+			const currentUpdateObj = mointorList.find(item => item.id === req.params.id);
+			if (updateObj.prop === 'Bstate' && +updateObj.value === 1) {
+				currentUpdateObj.Bstate = 2;
+				currentUpdateObj.BBscanDate = addDays(currentUpdateObj.BbreedingDate, 18);
+				currentUpdateObj.BdueDate = addDays(currentUpdateObj.BbreedingDate, 114);
+			}
+			res.send(currentUpdateObj);
 		}
 	},
 	// 获取监控数据
 	'/v1/monitor/state': {
 		get: (req, res) => {
+			// setTimeout(() => {
 			res.send({
 				type: ['2017-08-01', '2017-08-02', '2017-08-03', '2017-08-04', '2017-08-05', '2017-08-06', '2017-08-07'],
 				listData: [
@@ -51,6 +57,7 @@ module.exports = {
 					}
 				]
 			});
+			// }, 10000);
 		}
 	}
 }

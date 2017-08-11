@@ -67,12 +67,15 @@ export function updateMonitorDataAction(id, updateData) {
 			isFetching: true
 		}));
 		updateMonitor(id, updateData)
-			.then(() => {
+			.then(update => {
 				dispatch(updateMonitorData({
 					id,
 					updateData,
 					isFetching: false,
-					ok: true
+					success: update
+				}));
+				dispatch(editorState({
+					visible: false
 				}));
 			});
 	};
@@ -88,6 +91,6 @@ export function editorStateMintorAction(isOpen = false, item) {
 		dispatch(editorState({
 			visible: isOpen,
 			item
-		}))
+		}));
 	};
 }

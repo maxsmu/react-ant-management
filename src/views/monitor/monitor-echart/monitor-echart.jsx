@@ -12,12 +12,16 @@ import { Row, Col } from 'antd';
 import baseOption from './echart.config.js';
 
 export default class MonitorEchart extends Component {
+	// static defaultProps = {
+	// 	isLoading: false
+	// };
 	static propTypes = {
 		data: PropTypes.object.isRequired,
 		isLoading: PropTypes.bool
-	}
+	};
 	render() {
-		const { data, isLoading, ...others } = this.props;
+		const { data, ...others } = this.props;
+		// 配置 optionconfig
 		const option = genEchartsOption(data);
 		return (
 			<Row {...others}>
@@ -32,9 +36,8 @@ export default class MonitorEchart extends Component {
 						yAxis={baseOption.yAxis}
 						xAxis={option.xAxis}
 						series={option.series}
-						isLoading={!isLoading}
-						color={baseOption.color
-						}
+						isLoading={data.isFetching}
+						color={baseOption.color}
 					/>
 				</Col>
 			</Row>

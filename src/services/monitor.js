@@ -29,6 +29,5 @@ export function fetchMonitorState(days = 7) {
  * @param {Object} update 更新内容
  */
 export function updateMonitor(id, update) {
-	console.log(id, update);
 	return refetch.put(`/v1/monitor/${id}`, update);
 }

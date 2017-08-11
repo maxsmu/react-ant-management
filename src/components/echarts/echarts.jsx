@@ -16,7 +16,7 @@ export default class Echart extends Component {
 		width: '100%',
 		height: '100%',
 		theme: 'default',
-		isLoading: true,
+		isLoading: false,
 		loadingOpts: {
 			text: '生成中...',
 			color: '#c23531',
@@ -59,18 +59,11 @@ export default class Echart extends Component {
 		calendar: PropTypes.object
 	};
 	componentDidMount() {
-		this.renderEchart();
+		this.renderEchart(this.props);
 	}
 	componentWillReceiveProps(nextProps) {
-		const { isLoading, loadingOpts, series, isMerge, isLazyUpdate } = nextProps;
+		const { series, isMerge, isLazyUpdate } = nextProps;
 		if (series) {
-			// 如果正在加载中 显示loading 否则不显示
-			if (isLoading) {
-				this.echartInstance.hideLoading();
-			} else {
-				this.echartInstance.showLoading('default', loadingOpts);
-			}
-
 			const option = filterMap(nextProps);
 
 			// 显示数据
@@ -81,11 +74,12 @@ export default class Echart extends Component {
 			}, isMerge, isLazyUpdate);
 		}
 	}
-	componentWillUpdate() {
-		this.renderEchart();
+	componentWillUpdate(nextProps) {
+		this.renderEchart(nextProps);
 	}
-	renderEchart() {
-		const { theme, isLoading, loadingOpts, isMerge, isLazyUpdate, onReady } = this.props;
+	renderEchart(props) {
+		const { theme, isLoading, loadingOpts, isMerge, isLazyUpdate, onReady } = props;
+		// console.log('renderEchart':isLoading);
 		// 获取容器DOM
 		this.echartDom = this.echartsElement;
 
@@ -103,11 +97,8 @@ export default class Echart extends Component {
 		}
 
 		// 如果正在加载中 显示loading 否则不显示
-		if (isLoading) {
-			this.echartInstance.hideLoading();
-		} else {
-			this.echartInstance.showLoading('default', loadingOpts);
-		}
+
+		isLoading ? this.echartInstance.showLoading('default', loadingOpts) : this.echartInstance.hideLoading();
 
 		const option = filterMap(this.props);
 
