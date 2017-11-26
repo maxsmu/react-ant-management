@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 import { connect } from 'react-redux';
-import archiveAction from '@actions/archive';
+import { createArchive } from '@actions/archive';
 
 @connect(
 	state => {
@@ -21,7 +21,7 @@ import archiveAction from '@actions/archive';
 )
 export default class ArhiveCreator extends Component {
 	onCancel = () => {
-		this.props.dispatch(archiveAction.create(false));
+		this.props.dispatch(createArchive(false));
 	}
 	render() {
 		const { isCreate } = this.props

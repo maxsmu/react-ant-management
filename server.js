@@ -48,7 +48,9 @@ app.use((function genRouters(router) {
 	const routers = [];
 	const baseURl = './mock';
 	fs.readdirSync(baseURl).forEach(url => {
-		routers.push(require(`${baseURl}/${url}`));
+		if (url !== 'utils'&&!/\.DS_Store/g.test(url)) {
+			routers.push(require(`${baseURl}/${url}`));
+		}
 	});
 	routers.forEach(config => {
 		Object.keys(config).forEach(url => {

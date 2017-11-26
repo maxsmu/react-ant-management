@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'antd';
 import { connect } from 'react-redux';
-import archiveAction from '@actions/archive';
+import { batchImportArchives } from '@actions/archive';
 
 @connect(
 	state => {
@@ -21,7 +21,7 @@ import archiveAction from '@actions/archive';
 )
 export default class BatchImportor extends Component {
 	onCancel = () => {
-		this.props.dispatch(archiveAction.batchImport(false));
+		this.props.dispatch(batchImportArchives(false));
 	}
 	render() {
 		const { isBatchImport } = this.props;

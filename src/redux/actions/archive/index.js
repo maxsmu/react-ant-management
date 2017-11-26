@@ -6,15 +6,47 @@
  * @gitHub: https://github.com/maxsmu
 */
 import { createActions } from 'redux-actions';
-import { CREATE, BATCH_IMPORT } from './action-types';
+import { CREATE, BATCH_IMPORT, GET_ARCHIVES_LIST } from './action-types';
+import { fetchArchives } from '@services/archive';
+const action = createActions({}, CREATE, BATCH_IMPORT, GET_ARCHIVES_LIST);
+const { create, batchImport, getArchivesList } = action;
 
-const archiveAction = createActions({
-	// 创建 状态
-	[CREATE]: isCreate => Promise.resolve(isCreate),
-	// 批量导入 状态
-	[BATCH_IMPORT]: isBatchImport => Promise.resolve(isBatchImport)
-});
+/**
+ * 创建档案
+ * @param {Bool} isCreate 是否为创建状态
+ */
+export function createArchive(isCreate) {
+	return dispacth => {
+		dispacth(create({
+			isCreate
+		}));
+	}
+}
+/**
+ * 批量导入
+ * @param {Bool} {isBatchImport} 批量导入状态
+ */
+export function batchImportArchives(isBatchImport) {
+	return dispacth => {
+		dispacth(batchImport({ isBatchImport }));
+	};
+}
 
-const { create, batchImport } = archiveAction;
-
-export default { create, batchImport };
+/**
+ * 获取档案列表
+ */
+export function getAllArchivesList() {
+	return dispatch => {
+		dispatch(getArchivesList({
+			isFetching: true
+		}));
+		fetchArchives()
+			.then(archiveList => {
+				dispatch(getArchivesList({
+					isFetching: false,
+					data: archiveList.data,
+					pagination: archiveList.pagination
+				}));
+			});
+	};
+}

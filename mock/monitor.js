@@ -5,6 +5,7 @@
  * @last modified time: 2017-07-28 17:05:24
  * @gitHub: https://github.com/maxsmu
 */
+const Utils = require('./utils');
 const mointorList = [];
 module.exports = {
 	'/v1/monitor': {
@@ -30,8 +31,8 @@ module.exports = {
 			const currentUpdateObj = mointorList.find(item => item.id === req.params.id);
 			if (updateObj.prop === 'Bstate' && +updateObj.value === 1) {
 				currentUpdateObj.Bstate = 2;
-				currentUpdateObj.BBscanDate = addDays(currentUpdateObj.BbreedingDate, 18);
-				currentUpdateObj.BdueDate = addDays(currentUpdateObj.BbreedingDate, 114);
+				currentUpdateObj.BBscanDate = Utils.addDays(currentUpdateObj.BbreedingDate, 18);
+				currentUpdateObj.BdueDate = Utils.addDays(currentUpdateObj.BbreedingDate, 114);
 			}
 			res.send(currentUpdateObj);
 		}
@@ -66,8 +67,8 @@ module.exports = {
  * @param {Number} index 索引
  */
 function genMonitorData(index) {
-	const month = random(12);
-	const Nrandom = random(120);
+	const month = Utils.random(12);
+	const Nrandom = Utils.random(120);
 	if (Nrandom < 20) {
 		return genRecoverData(index, month);
 	} else if (Nrandom >= 20 && Nrandom < 60) {
@@ -80,30 +81,22 @@ function genMonitorData(index) {
 }
 
 /**
- * 生成随机数组 （1-limit）
- * @param {Number} limit 上限
- */
-function random(limit) {
-	return Math.floor(Math.random() * limit) + 1;
-}
-
-/**
  * 生成反情数据
  * @param {Number} index 索引
  * @param {Number} month 月份
  */
 function genInitData(index, month) {
-	const BbreedingDate = new Date(`2017-${month}-${random(29)}`);
+	const BbreedingDate = new Date(`2017-${month}-${Utils.random(29)}`);
 	return {
 		id: '030303' + index,
 		Pno: '699-001' + index,
-		Btype: '' + Math.floor(Math.random() * 2), // 0 -自然 1 -人工
+		Btype: '' + Utils.random([0, 2]), // 0 -自然 1 -人工
 		BbreedingDate,
 		BrecoverDate: '',
 		BBscanDate: '',
 		BdueDate: '',
 		BdeliveryDate: '',
-		Bparity: random(30),
+		Bparity: Utils.random(30),
 		Bstate: 0,
 		Bnumber: '',
 		Bpiglets: {
@@ -122,17 +115,17 @@ function genInitData(index, month) {
  * @param {Number} month 月份
  */
 function genRecoverData(index, month) {
-	const BbreedingDate = new Date(`2017-${month}-${random(29)}`);
+	const BbreedingDate = new Date(`2017-${month}-${Utils.random(29)}`);
 	return {
 		id: '030303' + index,
 		Pno: '699-001' + index,
 		Btype: '' + Math.floor(Math.random() * 2), // 0 -自然 1 -人工
 		BbreedingDate,
-		BrecoverDate: addDays(BbreedingDate, 8),
+		BrecoverDate: Utils.addDays(BbreedingDate, 8),
 		BBscanDate: '',
 		BdueDate: '',
 		BdeliveryDate: '',
-		Bparity: random(30),
+		Bparity: Utils.random(30),
 		Bstate: 1,
 		Bnumber: '',
 		Bpiglets: {
@@ -151,17 +144,17 @@ function genRecoverData(index, month) {
  * @param {Number} month 月份
  */
 function genSuccessDate(index, month) {
-	const BbreedingDate = new Date(`2017-${month}-${random(29)}`);
+	const BbreedingDate = new Date(`2017-${month}-${Utils.random(29)}`);
 	return {
 		id: '030303' + index,
 		Pno: '699-001' + index,
 		Btype: '' + Math.floor(Math.random() * 2), // 0 -自然 1 -人工
 		BbreedingDate,
 		BrecoverDate: '',
-		BBscanDate: addDays(BbreedingDate, 18),
-		BdueDate: addDays(BbreedingDate, 114),
-		BdeliveryDate: addDays(BbreedingDate, 115),
-		Bparity: random(30),
+		BBscanDate: Utils.addDays(BbreedingDate, 18),
+		BdueDate: Utils.addDays(BbreedingDate, 114),
+		BdeliveryDate: Utils.addDays(BbreedingDate, 115),
+		Bparity: Utils.random(30),
 		Bstate: 3,
 		Bnumber: 12,
 		Bpiglets: {
@@ -180,17 +173,17 @@ function genSuccessDate(index, month) {
  * @param {Number} month 月份
  */
 function genNomalDate(index, month) {
-	const BbreedingDate = new Date(`2017-${month}-${random(29)}`);
+	const BbreedingDate = new Date(`2017-${month}-${Utils.random(29)}`);
 	return {
 		id: '030303' + index,
 		Pno: '699-001' + index,
 		Btype: '' + Math.floor(Math.random() * 2), // 0 -自然 1 -人工
 		BbreedingDate,
 		BrecoverDate: '',
-		BBscanDate: addDays(BbreedingDate, 18),
-		BdueDate: addDays(BbreedingDate, 114),
+		BBscanDate: Utils.addDays(BbreedingDate, 18),
+		BdueDate: Utils.addDays(BbreedingDate, 114),
 		BdeliveryDate: '',
-		Bparity: random(30),
+		Bparity: Utils.random(30),
 		Bstate: 2,
 		Bnumber: '',
 		Bpiglets: {
@@ -201,16 +194,4 @@ function genNomalDate(index, month) {
 			Pmummy: ''
 		}
 	};
-}
-
-/**
- * 添加天数
- * @param {Date} date 时间
- * @param {Number} days 添加天数
- */
-function addDays(date, days = 0) {
-	const year = date.getFullYear();
-	const month = date.getMonth();
-	const day = date.getDate() + days;
-	return new Date(year, month, day);
 }

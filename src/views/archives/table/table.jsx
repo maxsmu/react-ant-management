@@ -6,77 +6,104 @@
  * @gitHub: https://github.com/maxsmu
 */
 import React, { Component } from 'react';
-import { Table, Icon } from 'antd';
+import PropTypes from 'prop-types';
+import { Table } from 'antd';
+// import { connect } from 'react-redux';
+import moment from 'moment';
+// import { getAllArchivesList } from '@actions/archive';
 
+// @connect(state => {
+// 	const { archives } = state;
+// 	return {
+// 		...archives,
+// 		archivesList: archives.archivesList
+// 	};
+// })
 export default class ArchiveTable extends Component {
+	static defaultProps = {
+		dataList: []
+	}
+	static propTypes = {
+		dataList: PropTypes.array,
+		pagination: PropTypes.object,
+		loading: PropTypes.bool
+	}
+	// componentDidMount() {
+	// 	this.props.dispatch(getAllArchivesList())
+	// }
 	render() {
+		const { isFetching, pagination, dataList } = this.props;
 		const columns = [
 			{
-				title: 'Name',
-				dataIndex: 'name',
-				key: 'name',
+				title: '耳号',
+				dataIndex: 'Pno',
 				render: text => <a href="#">{text}</a>
 			},
 			{
-				title: 'Age',
-				dataIndex: 'age',
-				key: 'age'
+				title: '品种',
+				dataIndex: 'Bno'
 			},
 			{
-				title: 'Address',
-				dataIndex: 'address',
-				key: 'address'
+				title: '性别',
+				dataIndex: 'Psex'
 			},
 			{
-				title: 'Action',
-				key: 'action',
-				render: (text, record) => (
-					<span>
-						<a href="#">Action 一 {record.name}</a>
-						<span className="ant-divider" />
-						<a href="#">Delete</a>
-						<span className="ant-divider" />
-						<a href="#" className="ant-dropdown-link">
-							More actions <Icon type="down" />
-						</a>
-					</span>
-				)
-			}];
-
-		const data = [
-			{
-				key: '1',
-				name: 'John Brown',
-				age: 32,
-				address: 'New York No. 1 Lake Park'
+				title: '圈舍',
+				dataIndex: 'Hno'
 			},
 			{
-				key: '2',
-				name: 'Jim Green',
-				age: 42,
-				address: 'London No. 1 Lake Park'
+				title: '体重(kg)',
+				dataIndex: 'Pweight'
 			},
 			{
-				key: '3',
-				name: 'Joe Black',
-				age: 32,
-				address: 'Sidney No. 1 Lake Park'
+				title: '饲养周期',
+				dataIndex: 'Pcycle'
 			},
 			{
-				key: '4',
-				name: 'Joe Black',
-				age: 32,
-				address: 'Sidney No. 1 Lake Park'
+				title: '喂养天数',
+				dataIndex: 'Pday'
 			},
 			{
-				key: '5',
-				name: 'Joe Black',
-				age: 32,
-				address: 'Sidney No. 1 Lake Park'
+				title: '父耳号',
+				dataIndex: 'Pfatherno'
+			},
+			{
+				title: '母耳号',
+				dataIndex: 'Pmotherno'
+			},
+			{
+				title: '建档时间',
+				dataIndex: 'Pcreated',
+				render: text => {
+					return moment(text).format('YYYY-MM-DD');
+				}
+			},
+			{
+				title: '状态',
+				dataIndex: 'Pstate'
+			},
+			{
+				title: '操作人',
+				dataIndex: 'Ono'
+			},
+			{
+				title: '备注',
+				// dataIndex: 'Pstate',
+				render: (text, record) => {
+					return record.Pstate === 1 ? '11' : (record.PdeathCause || 2323)
+				}
 			}
 		];
+
 		return (
-			<Table bordered columns={columns} dataSource={data} />
+			<Table
+				rowKey="Pno"
+				bordered
+				loading={isFetching}
+				columns={columns}
+				pagination={pagination}
+				dataSource={dataList}
+			/>
 		);
 	}
 }

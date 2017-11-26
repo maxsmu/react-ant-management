@@ -10,6 +10,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { MainLayout } from '@layout/main-layout';
 import 'normalize.css';
+// 本地无网开发使用的本地iconfont样式
+// import '!style-loader!css-loader!@assets/iconfont/iconfont.css';
 import '!style-loader!css-loader!antd/dist/antd.css';
 import '!style-loader!css-loader!sass-loader!@assets/scss/index.scss';
 
